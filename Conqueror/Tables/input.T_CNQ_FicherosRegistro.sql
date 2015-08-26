@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [input].[T_CNQ_FicherosRegistro]
 (
-	[IdFichero] INT NOT NULL PRIMARY KEY, 
+	[IdFichero] INT NOT NULL PRIMARY KEY IDENTITY, 
     [IdFicheroTipo] INT NOT NULL, 
     [DsFichero] VARCHAR(100) NOT NULL, 
     [FcInicioCarga] DATETIME NOT NULL DEFAULT GETDATE(), 

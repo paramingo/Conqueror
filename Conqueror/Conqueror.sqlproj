@@ -110,6 +110,7 @@
     <Folder Include="Properties" />
     <Folder Include="Security\" />
     <Folder Include="Tables" />
+    <Folder Include="Stored Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\input.sql" />
@@ -118,6 +119,8 @@
     <Build Include="Tables\input.T_CNQ_FicherosTipos.sql" />
     <Build Include="Tables\input.T_CNQ_FicherosRegistro.sql" />
     <Build Include="Tables\input.T_CNQ_Ficheros.sql" />
+    <Build Include="Stored Procedures\input.PR_CNQ_FicheroCargaInicio.sql" />
+    <Build Include="Stored Procedures\input.PR_CNQ_FicheroCargaFin.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />

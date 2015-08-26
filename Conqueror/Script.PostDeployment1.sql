@@ -17,7 +17,7 @@ USING (VALUES
 	(2, N'Asociaciones'),
 	(3, N'Direfctorios')
 )
-AS Source (IdFicheroTipo, TipoPunto)
+AS Source (IdFicheroTipo, DsFicheroTipo)
 ON Target.IdFicheroTipo = Source.IdFicheroTipo
 -- update matched rows
 WHEN MATCHED THEN

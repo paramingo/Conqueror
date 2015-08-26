@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo"
+  DTS:DTSID="{11E541B9-8682-42BF-9E46-A6827FBA7CEF}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=iq6z8q65gz.database.windows.net,1433;User ID=paramingo;Initial Catalog=Conqueror;Persist Security Info=True;Application Name=SSIS-SSISConquerorContactos-{11E541B9-8682-42BF-9E46-A6827FBA7CEF}iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAATtNphR8UUkKQIJVhM3+RawAAAAACAAAAAAADZgAAwAAAABAAAABaZ1ggjikS5YKi/JwHNbCuAAAAAASAAACgAAAAEAAAAArU6LdyngS+MIv7CZiN+7R4AAAAVV6W53oB5jHRbhErmjVSBDfwnjRKfI3XC8J1bUkxRLcKrur4feouDz6W70MhaFgsmLP2GakXZu/c5wDdrOFDdwbgGqBc82aUsvtLgEB9SvGoLcVC0kH/jM8C1UiBNQ2TPWkUBYHOb6yn8tAoutaAp9qBRSpz8OmTFAAAAEeyTzCtk3MU2wT9F2uFUn/LMM53</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
