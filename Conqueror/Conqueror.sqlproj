@@ -121,6 +121,7 @@
     <Build Include="Tables\input.T_CNQ_Ficheros.sql" />
     <Build Include="Stored Procedures\input.PR_CNQ_FicheroCargaInicio.sql" />
     <Build Include="Stored Procedures\input.PR_CNQ_FicheroCargaFin.sql" />
+    <Build Include="Security\CNQ_SSISUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />

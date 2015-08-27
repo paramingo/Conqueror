@@ -11,19 +11,21 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="CNQImportacionBBDDGeneral"
   DTS:PackageType="5"
-  DTS:VersionBuild="21"
-  DTS:VersionGUID="{85FF309B-85CF-46F8-AC5C-E505525749C4}">
+  DTS:VersionBuild="37"
+  DTS:VersionGUID="{FB3B6914-0BCA-4F48-A970-05C019D71DB9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Administrador de conexiones con Excel]"
+      DTS:refId="Package.ConnectionManagers[BBDD General]"
       DTS:CreationName="EXCEL"
       DTS:DTSID="{2D6683DC-B69F-42B8-8BD7-790718D7F2E6}"
-      DTS:ObjectName="Administrador de conexiones con Excel">
+      DTS:ObjectName="BBDD General">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">@[$Project::PathBBDDGeneral]+ @[User::FicheroBBDDGeneral]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Dropbox\Dropbox\Conqueror\FicherosCarga\BBDDGeneral\BBDD_General_21Agosto2015.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Dropbox\Dropbox\Conqueror\FicherosCarga\BBDDGeneral\BBDD_General_21Agosto2015.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -35,8 +37,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="FicheroBBDDGeneral">
       <DTS:VariableValue
-        DTS:DataType="8"
-        xml:space="preserve"></DTS:VariableValue>
+        DTS:DataType="8">BBDD_General_21Agosto2015.xlsx</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -81,6 +82,7 @@
         <DTS:Executable
           DTS:refId="Package\Bucle BBDD General\Carga BBDD General"
           DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
           DTS:Description="Tarea Flujo de datos"
           DTS:DTSID="{28F34DBF-F2D2-43A1-A3B0-14D694130A65}"
           DTS:ExecutableType="Microsoft.Pipeline"
@@ -93,71 +95,71 @@
               version="1">
               <components>
                 <component
-                  refId="Package\Bucle BBDD General\Carga BBDD General\Origen de ADO NET"
-                  componentClassID="Microsoft.ManagedComponentHost"
-                  contactInfo="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
-                  description="Consume datos de SQL Server, OLE DB, ODBC u Oracle mediante el correspondiente proveedor de datos de .NET Framework. Se usa una instrucción Transact-SQL para definir el conjunto de resultados. Por ejemplo, se extraen datos de SQL Server con el proveedor de datos de .NET Framework para SQL Server."
-                  name="Origen de ADO NET"
-                  usesDispositions="true"
-                  version="4">
-                  <properties>
-                    <property
-                      dataType="System.String"
-                      description="Especifica la instrucción SQL utilizada por el componente para extraer datos."
-                      expressionType="Notify"
-                      name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                    <property
-                      dataType="System.Int32"
-                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
-                      name="CommandTimeout">30</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Indica si se debe permitir que columnas externas que no sean de cadenas se conviertan implícitamente en cadenas en las columnas de salida."
-                      name="AllowImplicitStringConversion">true</property>
-                    <property
-                      dataType="System.String"
-                      description="Nombre de la tabla de la base de datos de origen."
-                      expressionType="Notify"
-                      name="TableOrViewName"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                    <property
-                      dataType="System.Int32"
-                      description="Especificar el modo de recuperar información de columnas externas"
-                      name="AccessMode"
-                      typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
-                    <property
-                      dataType="System.String"
-                      name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
-                  </properties>
-                  <connections>
-                    <connection
-                      refId="Package\Bucle BBDD General\Carga BBDD General\Origen de ADO NET.Connections[IDbConnection]"
-                      description="Administrador de conexiones administrado"
-                      name="IDbConnection" />
-                  </connections>
+                  refId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Columna derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+                  description="Crea nuevos valores de columna aplicando expresiones a las columnas de entrada de la transformación. Crea nuevas columnas o sobrescribe las columnas existentes. Por ejemplo, se concatenan los valores de las columnas 'nombre' y 'apellidos' para crear una columna 'nombre completo'."
+                  name="Columna derivada"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Inputs[Entrada de columna derivada]"
+                      description="Entrada en la transformación Columna derivada"
+                      name="Entrada de columna derivada">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
                   <outputs>
                     <output
-                      refId="Package\Bucle BBDD General\Carga BBDD General\Origen de ADO NET.Outputs[Salida de origen de ADO NET]"
-                      name="Salida de origen de ADO NET">
-                      <externalMetadataColumns
-                        isUsed="True" />
-                    </output>
-                    <output
-                      refId="Package\Bucle BBDD General\Carga BBDD General\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET]"
-                      isErrorOut="true"
-                      name="Salida de error de origen de ADO NET">
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Outputs[Salida de columna derivada]"
+                      description="Salida predeterminada de la transformación Columna derivada"
+                      exclusionGroup="1"
+                      name="Salida de columna derivada"
+                      synchronousInputId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Inputs[Entrada de columna derivada]">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Outputs[Salida de columna derivada].Columns[IdFichero]"
                           dataType="i4"
-                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorCode]"
+                          errorOrTruncationOperation="Cálculo"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Outputs[Salida de columna derivada].Columns[IdFichero]"
+                          name="IdFichero"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Expresión de columna derivada"
+                              name="Expression">@[User::IdFichero]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Expresión descriptiva de columna derivada"
+                              expressionType="Notify"
+                              name="FriendlyExpression">@[User::IdFichero]</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Outputs[Salida de error de columna derivada]"
+                      description="Salida de error de la transformación Columna derivada"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de columna derivada"
+                      synchronousInputId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Inputs[Entrada de columna derivada]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de ADO NET.Outputs[Salida de error de origen de ADO NET].Columns[ErrorColumn]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -166,13 +168,649 @@
                   </outputs>
                 </component>
                 <component
-                  refId="Package\Bucle BBDD General\Carga BBDD General\Origen de OLE DB"
-                  componentClassID="Microsoft.OLEDBSource"
-                  contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
-                  description="Origen de OLE DB"
-                  name="Origen de OLE DB"
+                  refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+                  description="Conversión de datos"
+                  name="Conversión de datos"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                      name="Entrada de conversión de datos">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Source]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Source"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Source]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Continent]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Continent"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Continent]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Country]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Country"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Country]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[City]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="City"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[City]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Email]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Email"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Email]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Address]"
+                          cachedDataType="nText"
+                          cachedName="Address"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Address]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Postal Code]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Postal Code"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Postal Code]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Telephone No#]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Telephone No#"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Telephone No#]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[COOP - Status Lead]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="COOP - Status Lead"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status Lead]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[CQR - Status Lead]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="CQR - Status Lead"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[CQR - Status Lead]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[COOP - Status City]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="COOP - Status City"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status City]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[CQR - Status City]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="CQR - Status City"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[CQR - Status City]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos]"
+                      exclusionGroup="1"
+                      name="Salida de conversión de datos"
+                      synchronousInputId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Source]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="80"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Source]"
+                          name="Copia de Source"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Source]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Continent]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="20"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Continent]"
+                          name="Copia de Continent"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Continent]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Country]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="50"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Country]"
+                          name="Copia de Country"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Country]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de City]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="80"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de City]"
+                          name="Copia de City"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[City]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Email]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Email]"
+                          name="Copia de Email"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Email]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Address]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="500"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Address]"
+                          name="Copia de Address"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Address]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Postal Code]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="15"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Postal Code]"
+                          name="Copia de Postal Code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Postal Code]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Telephone No#]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="200"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Telephone No#]"
+                          name="Copia de Telephone No#"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Telephone No#]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de COOP - Status Lead]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="60"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de COOP - Status Lead]"
+                          name="Copia de COOP - Status Lead"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status Lead]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de CQR - Status Lead]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="60"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de CQR - Status Lead]"
+                          name="Copia de CQR - Status Lead"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[CQR - Status Lead]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de COOP - Status City]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="40"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de COOP - Status City]"
+                          name="Copia de COOP - Status City"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status City]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de CQR - Status City]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          length="40"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de CQR - Status City]"
+                          name="Copia de CQR - Status City"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                              name="SourceInputColumnLineageID">#{Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[CQR - Status City]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de conversión de datos"
+                      synchronousInputId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Carga datos en una base de datos compatible con ADO.NET que use una vista o tabla de base de datos. Se cargan datos en una tabla nueva o existente. Por ejemplo, se usa un proveedor ADO.NET para ODBC para cargar datos en un destino ODBC.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;2"
+                  description="Carga datos en una base de datos compatible con ADO.NET que use una vista o tabla de base de datos. Se cargan datos en una tabla nueva o existente. Por ejemplo, se usa un proveedor ADO.NET para ODBC para cargar datos en un destino ODBC."
+                  name="Destino de ADO NET"
                   usesDispositions="true"
-                  version="7">
+                  version="2">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Nombre de la tabla de la base de datos de destino."
+                      expressionType="Notify"
+                      name="TableOrViewName"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"input"."T_CNQ_Ficheros"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifique el número de filas por lote. El valor predeterminado es 0, que utiliza el mismo tamaño que el búfer interno de SSIS. "
+                      expressionType="Notify"
+                      name="BatchSize">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito. "
+                      expressionType="Notify"
+                      name="CommandTimeout">30</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Especifica si se debe usar la interfaz SqlBulkCopy para mejorar el rendimiento de las operaciones de inserción masiva. No todos los proveedores admiten esta interfaz."
+                      expressionType="Notify"
+                      name="UseBulkInsertWhenPossible">true</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Connections[IDbConnection]"
+                      connectionManagerID="{11E541B9-8682-42BF-9E46-A6827FBA7CEF}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[iq6z8q65gz database windows net 1433 Conqueror CNQ_SSISUser]"
+                      description="Administrador de conexiones administrado"
+                      name="IDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de destino de ADO NET">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[IdFichero]"
+                          cachedDataType="i4"
+                          cachedName="IdFichero"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[IdFichero]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Outputs[Salida de columna derivada].Columns[IdFichero]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Source]"
+                          cachedDataType="wstr"
+                          cachedLength="80"
+                          cachedName="Copia de Source"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Source]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Source]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Continent]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="Copia de Continent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Continent]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Continent]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Country]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="Copia de Country"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Country]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Country]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de City]"
+                          cachedDataType="wstr"
+                          cachedLength="80"
+                          cachedName="Copia de City"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[City]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de City]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Email]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="Copia de Email"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Email]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Email]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Title + First Name + Surname]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Title + First Name + Surname"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[TitleFirstNameSurname]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Title + First Name + Surname]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Company Name]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Company Name"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[CompanyName]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Company Name]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Address]"
+                          cachedDataType="wstr"
+                          cachedLength="500"
+                          cachedName="Copia de Address"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Address]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Address]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Postal Code]"
+                          cachedDataType="wstr"
+                          cachedLength="15"
+                          cachedName="Copia de Postal Code"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[PostalCode]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Postal Code]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Telephone No#]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="Copia de Telephone No#"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[TelephoneNo]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Telephone No#]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de COOP - Status Lead]"
+                          cachedDataType="wstr"
+                          cachedLength="60"
+                          cachedName="Copia de COOP - Status Lead"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[COOPStatusLead]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de COOP - Status Lead]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de CQR - Status Lead]"
+                          cachedDataType="wstr"
+                          cachedLength="60"
+                          cachedName="Copia de CQR - Status Lead"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[CQRStatusLead]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de CQR - Status Lead]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de COOP - Status City]"
+                          cachedDataType="wstr"
+                          cachedLength="40"
+                          cachedName="Copia de COOP - Status City"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[COOPStatusCity]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de COOP - Status City]" />
+                        <inputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de CQR - Status City]"
+                          cachedDataType="wstr"
+                          cachedLength="40"
+                          cachedName="Copia de CQR - Status City"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[CQRStatusCity]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de CQR - Status City]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[IdFichero]"
+                          dataType="i4"
+                          name="IdFichero" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[IdLinea]"
+                          dataType="i4"
+                          name="IdLinea" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Source]"
+                          dataType="wstr"
+                          length="80"
+                          name="Source" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Continent]"
+                          dataType="wstr"
+                          length="20"
+                          name="Continent" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Country]"
+                          dataType="wstr"
+                          length="50"
+                          name="Country" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[City]"
+                          dataType="wstr"
+                          length="80"
+                          name="City" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Email]"
+                          dataType="wstr"
+                          length="100"
+                          name="Email" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[TitleFirstNameSurname]"
+                          dataType="wstr"
+                          length="255"
+                          name="TitleFirstNameSurname" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[CompanyName]"
+                          dataType="wstr"
+                          length="255"
+                          name="CompanyName" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Address]"
+                          dataType="wstr"
+                          length="500"
+                          name="Address" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[PostalCode]"
+                          dataType="wstr"
+                          length="15"
+                          name="PostalCode" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[TelephoneNo]"
+                          dataType="wstr"
+                          length="200"
+                          name="TelephoneNo" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[COOPStatusLead]"
+                          dataType="wstr"
+                          length="60"
+                          name="COOPStatusLead" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[CQRStatusLead]"
+                          dataType="wstr"
+                          length="60"
+                          name="CQRStatusLead" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[COOPStatusCity]"
+                          dataType="wstr"
+                          length="40"
+                          name="COOPStatusCity" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[CQRStatusCity]"
+                          dataType="wstr"
+                          length="40"
+                          name="CQRStatusCity" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de destino de ADO NET"
+                      synchronousInputId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel"
+                  componentClassID="Microsoft.ExcelSource"
+                  contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+                  description="Origen de Excel"
+                  name="Origen de Excel"
+                  usesDispositions="true"
+                  validateExternalMetadata="False"
+                  version="1">
                   <properties>
                     <property
                       dataType="System.Int32"
@@ -181,7 +819,7 @@
                     <property
                       dataType="System.String"
                       description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                      name="OpenRowset"></property>
+                      name="OpenRowset">'BBDD correcta$'</property>
                     <property
                       dataType="System.String"
                       description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
@@ -197,50 +835,340 @@
                       name="SqlCommandVariable"></property>
                     <property
                       dataType="System.Int32"
-                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
-                      name="DefaultCodePage">1252</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
-                      name="AlwaysUseDefaultCodePage">false</property>
-                    <property
-                      dataType="System.Int32"
                       description="Especifica el modo utilizado para obtener acceso a la base de datos."
                       name="AccessMode"
                       typeConverter="AccessMode">0</property>
                     <property
                       dataType="System.String"
-                      description="Asignaciones entre los parámetros del comando SQL y las variables."
+                      description="La asignación de parámetros del comando SQL a variables."
                       name="ParameterMapping"></property>
                   </properties>
                   <connections>
                     <connection
-                      refId="Package\Bucle BBDD General\Carga BBDD General\Origen de OLE DB.Connections[OleDbConnection]"
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[BBDD General]"
+                      connectionManagerRefId="Package.ConnectionManagers[BBDD General]"
                       description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
                       name="OleDbConnection" />
                   </connections>
                   <outputs>
                     <output
-                      refId="Package\Bucle BBDD General\Carga BBDD General\Origen de OLE DB.Outputs[Salida de origen de OLE DB]"
-                      name="Salida de origen de OLE DB">
-                      <externalMetadataColumns
-                        isUsed="True" />
-                    </output>
-                    <output
-                      refId="Package\Bucle BBDD General\Carga BBDD General\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB]"
-                      isErrorOut="true"
-                      name="Salida de error de origen de OLE DB">
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel]"
+                      name="Salida de origen de Excel">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Source]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Source]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Source]"
+                          name="Source"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Continent]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Continent]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Continent]"
+                          name="Continent"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Country]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Country]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Country]"
+                          name="Country"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[City]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[City]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[City]"
+                          name="City"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Email]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Email]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Email]"
+                          name="Email"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Title + First Name + Surname]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Title + First Name + Surname]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Title + First Name + Surname]"
+                          name="Title + First Name + Surname"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Company Name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Company Name]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Company Name]"
+                          name="Company Name"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Address]"
+                          dataType="nText"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Address]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Address]"
+                          name="Address"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Postal Code]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Postal Code]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Postal Code]"
+                          name="Postal Code"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Telephone No#]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Telephone No#]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Telephone No#]"
+                          name="Telephone No#"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status Lead]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[COOP - Status Lead]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status Lead]"
+                          name="COOP - Status Lead"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[CQR - Status Lead]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[CQR - Status Lead]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[CQR - Status Lead]"
+                          name="CQR - Status Lead"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status City]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[COOP - Status City]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status City]"
+                          name="COOP - Status City"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[CQR - Status City]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[CQR - Status City]"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].Columns[CQR - Status City]"
+                          name="CQR - Status City"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Source]"
+                          dataType="wstr"
+                          length="255"
+                          name="Source" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Continent]"
+                          dataType="wstr"
+                          length="255"
+                          name="Continent" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Country]"
+                          dataType="wstr"
+                          length="255"
+                          name="Country" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[City]"
+                          dataType="wstr"
+                          length="255"
+                          name="City" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Email]"
+                          dataType="wstr"
+                          length="255"
+                          name="Email" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Title + First Name + Surname]"
+                          dataType="wstr"
+                          length="255"
+                          name="Title + First Name + Surname" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Company Name]"
+                          dataType="wstr"
+                          length="255"
+                          name="Company Name" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Address]"
+                          dataType="wstr"
+                          length="255"
+                          name="Address" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Postal Code]"
+                          dataType="wstr"
+                          length="255"
+                          name="Postal Code" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Telephone No#]"
+                          dataType="wstr"
+                          length="255"
+                          name="Telephone No#" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[COOP - Status Lead]"
+                          dataType="wstr"
+                          length="255"
+                          name="COOP - Status Lead" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[CQR - Status Lead]"
+                          dataType="wstr"
+                          length="255"
+                          name="CQR - Status Lead" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[COOP - Status City]"
+                          dataType="wstr"
+                          length="255"
+                          name="COOP - Status City" />
+                        <externalMetadataColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[CQR - Status City]"
+                          dataType="wstr"
+                          length="255"
+                          name="CQR - Status City" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel]"
+                      isErrorOut="true"
+                      name="Salida de error de origen de Excel">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Source]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Source]"
+                          name="Source" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Continent]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Continent]"
+                          name="Continent" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Country]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Country]"
+                          name="Country" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[City]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[City]"
+                          name="City" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Email]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Email]"
+                          name="Email" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Title + First Name + Surname]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Title + First Name + Surname]"
+                          name="Title + First Name + Surname" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Company Name]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Company Name]"
+                          name="Company Name" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Address]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Address]"
+                          name="Address" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Postal Code]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Postal Code]"
+                          name="Postal Code" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Telephone No#]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Telephone No#]"
+                          name="Telephone No#" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[COOP - Status Lead]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[COOP - Status Lead]"
+                          name="COOP - Status Lead" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[CQR - Status Lead]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[CQR - Status Lead]"
+                          name="CQR - Status Lead" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[COOP - Status City]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[COOP - Status City]"
+                          name="COOP - Status City" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[CQR - Status City]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[CQR - Status City]"
+                          name="CQR - Status City" />
+                        <outputColumn
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
                           dataType="i4"
-                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
                           name="ErrorCode"
                           specialFlags="1" />
                         <outputColumn
-                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          refId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
                           dataType="i4"
-                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de OLE DB.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          lineageId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
                           name="ErrorColumn"
                           specialFlags="2" />
                       </outputColumns>
@@ -249,6 +1177,23 @@
                   </outputs>
                 </component>
               </components>
+              <paths>
+                <path
+                  refId="Package\Bucle BBDD General\Carga BBDD General.Paths[Salida de columna derivada]"
+                  endId="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]"
+                  name="Salida de columna derivada"
+                  startId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Outputs[Salida de columna derivada]" />
+                <path
+                  refId="Package\Bucle BBDD General\Carga BBDD General.Paths[Salida de conversión de datos]"
+                  endId="Package\Bucle BBDD General\Carga BBDD General\Columna derivada.Inputs[Entrada de columna derivada]"
+                  name="Salida de conversión de datos"
+                  startId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Outputs[Salida de conversión de datos]" />
+                <path
+                  refId="Package\Bucle BBDD General\Carga BBDD General.Paths[Salida de origen de Excel]"
+                  endId="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Salida de origen de Excel"
+                  startId="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel.Outputs[Salida de origen de Excel]" />
+              </paths>
             </pipeline>
           </DTS:ObjectData>
         </DTS:Executable>
@@ -419,17 +1364,112 @@
     design-time-name="Package\Bucle BBDD General\Carga BBDD General">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET"
+          TopLeft="5.50000000000003,311.5" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Bucle BBDD General\Carga BBDD General\Conversión de datos"
+          TopLeft="6.00000000000001,107.5" />
         <NodeLayout
           Size="164,42"
-          Id="Package\Bucle BBDD General\Carga BBDD General\Origen de OLE DB"
-          TopLeft="154,51" />
+          Id="Package\Bucle BBDD General\Carga BBDD General\Columna derivada"
+          TopLeft="11.5,209.5" />
         <NodeLayout
-          Size="172,42"
-          Id="Package\Bucle BBDD General\Carga BBDD General\Origen de ADO NET"
-          TopLeft="105,192" />
+          Size="153,42"
+          Id="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel"
+          TopLeft="17,5.5" />
+        <EdgeLayout
+          Id="Package\Bucle BBDD General\Carga BBDD General.Paths[Salida de origen de Excel]"
+          TopLeft="93.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Bucle BBDD General\Carga BBDD General.Paths[Salida de conversión de datos]"
+          TopLeft="93.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Bucle BBDD General\Carga BBDD General.Paths[Salida de columna derivada]"
+          TopLeft="93.5,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Bucle BBDD General\Carga BBDD General\Destino de ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Bucle BBDD General\Carga BBDD General\Origen de Excel">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>

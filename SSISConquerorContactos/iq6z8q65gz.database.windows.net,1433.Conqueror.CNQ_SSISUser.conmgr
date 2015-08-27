@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="iq6z8q65gz database windows net 1433 Conqueror CNQ_SSISUser"
+  DTS:DTSID="{11E541B9-8682-42BF-9E46-A6827FBA7CEF}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=iq6z8q65gz.database.windows.net,1433;User ID=CNQ_SSISUser;Initial Catalog=Conqueror;Persist Security Info=True;Application Name=SSIS-SSISConquerorContactos-{11E541B9-8682-42BF-9E46-A6827FBA7CEF}iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAD5P9E2/w+kes0Ei9a7igaQAAAAACAAAAAAADZgAAwAAAABAAAACrYQjIiQztPI/GtV3vcyxbAAAAAASAAACgAAAAEAAAAKXCoGa2GcT8IdwZL6e32O54AAAAh5fQfMM9v2nLcVho7Cb2Y97bxECWfsojXQSDBvVwyFve9BgL6oTUhe7nn56tDKobKr28SMSfccMnie6jsqdtJBM1k6JmeP6wn7VAqGjN7AVbpL89JK4HqmTKyNxEXmMhGgVbpZMEM11Mc0b+wPO6w0/9qL30kCJhFAAAAHjUgxsX5sUX41DyiTcsRHHJLHTv</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

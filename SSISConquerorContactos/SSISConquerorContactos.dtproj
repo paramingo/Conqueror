@@ -26,18 +26,18 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">PRT0150</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAD5P9E2/w+kes0Ei9a7igaQAAAAACAAAAAAADZgAAwAAAABAAAAANqb6ZjRlKhaKyuIwFKlfjAAAAAASAAACgAAAAEAAAAIPymAZhJ2mG6r6++/perTKIAAAAm2vum8V1osArSDvPDcVXINwkvNc6fIVXBlGcq30OZtYRF1hPvF1Ailq9ssIXwoQtQIqkbAKFpO21cN7yCfbKjWrjFDzlGrrs/fkTBPHIh3id/hT6QGu/3vSlrB0G+wQkwQVcRPT4ZFF4bbE39SwYCONV7LhS35f82nY4pO0xIMktZZcf4hGN7RQAAABDCPYpurMarNBhLFU42Qs3SZ+gkw==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAD5P9E2/w+kes0Ei9a7igaQAAAAACAAAAAAADZgAAwAAAABAAAABOnHvW1QX6UHptbpFBYf54AAAAAASAAACgAAAAEAAAAH+MiSaMrkOTt2Cbj5dBosWIAAAA7G1A/RCKu1TsZf1JUvUYsjorFT0Cf+2Yj9rell8lIVJEly/HNYfS3MLRj/u1smq2NVOgWok94j5wfHHK8glUlHXgnIdoDO91lKfNDQQW9+e9Pw58b23i7jLsSf/GP7iJ+gAx2J8QLP6spysTT58qHFcvR9krjmveHFPFvQ3LjU9sZmZ6HNfTDRQAAABK0VtUsmRrPJCt7yGCNhOOHSWttw==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
           <SSIS:Package SSIS:Name="CNQImportacionBBDDGeneral.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
-          <SSIS:ConnectionManager SSIS:Name="iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo.conmgr" />
+          <SSIS:ConnectionManager SSIS:Name="iq6z8q65gz.database.windows.net,1433.Conqueror.CNQ_SSISUser.conmgr" />
         </SSIS:ConnectionManagers>
         <SSIS:DeploymentInfo>
           <SSIS:ProjectConnectionParameters>
-            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo.ConnectionString">
+            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz database windows net 1433 Conqueror CNQ_SSISUser.ConnectionString">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">
                 </SSIS:Property>
@@ -48,11 +48,11 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">Data Source=iq6z8q65gz.database.windows.net,1433;User ID=paramingo;Initial Catalog=Conqueror;Persist Security Info=True;Application Name=SSIS-SSISConquerorContactos-{11E541B9-8682-42BF-9E46-A6827FBA7CEF}iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo;</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">Data Source=iq6z8q65gz.database.windows.net,1433;User ID=CNQ_SSISUser;Initial Catalog=Conqueror;Persist Security Info=True;Application Name=SSIS-SSISConquerorContactos-{11E541B9-8682-42BF-9E46-A6827FBA7CEF}iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo;</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
-            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo.InitialCatalog">
+            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz database windows net 1433 Conqueror CNQ_SSISUser.InitialCatalog">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">
                 </SSIS:Property>
@@ -67,7 +67,7 @@
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
-            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo.Password">
+            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz database windows net 1433 Conqueror CNQ_SSISUser.Password">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">
                 </SSIS:Property>
@@ -81,7 +81,7 @@
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
-            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo.RetainSameConnection">
+            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz database windows net 1433 Conqueror CNQ_SSISUser.RetainSameConnection">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">
                 </SSIS:Property>
@@ -96,7 +96,7 @@
                 <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
-            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo.ServerName">
+            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz database windows net 1433 Conqueror CNQ_SSISUser.ServerName">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">
                 </SSIS:Property>
@@ -111,7 +111,7 @@
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
-            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz.database.windows.net,1433.Conqueror.paramingo.UserName">
+            <SSIS:Parameter SSIS:Name="CM.iq6z8q65gz database windows net 1433 Conqueror CNQ_SSISUser.UserName">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">
                 </SSIS:Property>
@@ -122,7 +122,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">paramingo</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">CNQ_SSISUser</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -134,17 +134,17 @@
                 <SSIS:Property SSIS:Name="Name">CNQImportacionBBDDGeneral</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">21</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">36</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{85FF309B-85CF-46F8-AC5C-E505525749C4}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{7CFF4AC6-965A-468B-8D9F-C506E038DF24}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
               </SSIS:Properties>
               <SSIS:Parameters>
-                <SSIS:Parameter SSIS:Name="CM.Administrador de conexiones con Excel.ConnectionString">
+                <SSIS:Parameter SSIS:Name="CM.BBDD General.ConnectionString">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -155,26 +155,11 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Dropbox\Dropbox\Conqueror\FicherosCarga\BBDDGeneral\BBDD_General_21Agosto2015.xlsx;Extended Properties="Excel 12.0 XML;HDR=YES";</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Dropbox\Dropbox\Conqueror\FicherosCarga\BBDDGeneral\;Extended Properties="EXCEL 12.0 XML;HDR=YES";</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.Administrador de conexiones con Excel.ExcelFilePath">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">D:\Dropbox\Dropbox\Conqueror\FicherosCarga\BBDDGeneral\BBDD_General_21Agosto2015.xlsx</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.Administrador de conexiones con Excel.FirstRowHasColumnName">
+                <SSIS:Parameter SSIS:Name="CM.BBDD General.FirstRowHasColumnName">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -189,7 +174,7 @@
                     <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.Administrador de conexiones con Excel.InitialCatalog">
+                <SSIS:Parameter SSIS:Name="CM.BBDD General.InitialCatalog">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -203,7 +188,7 @@
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.Administrador de conexiones con Excel.Password">
+                <SSIS:Parameter SSIS:Name="CM.BBDD General.Password">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -217,7 +202,7 @@
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.Administrador de conexiones con Excel.RetainSameConnection">
+                <SSIS:Parameter SSIS:Name="CM.BBDD General.RetainSameConnection">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -232,7 +217,7 @@
                     <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.Administrador de conexiones con Excel.ServerName">
+                <SSIS:Parameter SSIS:Name="CM.BBDD General.ServerName">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>
@@ -243,11 +228,11 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">D:\Dropbox\Dropbox\Conqueror\FicherosCarga\BBDDGeneral\BBDD_General_21Agosto2015.xlsx</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">D:\Dropbox\Dropbox\Conqueror\FicherosCarga\BBDDGeneral\</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.Administrador de conexiones con Excel.UserName">
+                <SSIS:Parameter SSIS:Name="CM.BBDD General.UserName">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">
                     </SSIS:Property>

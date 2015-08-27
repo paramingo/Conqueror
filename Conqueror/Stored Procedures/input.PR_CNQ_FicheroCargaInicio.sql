@@ -14,3 +14,8 @@ BEGIN
 
 	RETURN @IdFichero
 END
+
+GO
+
+GRANT EXECUTE ON [input].[PR_CNQ_FicheroCargaInicio] TO CNQ_SSISUser;
+GO
