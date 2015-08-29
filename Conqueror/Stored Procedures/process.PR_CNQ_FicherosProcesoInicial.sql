@@ -1,5 +1,6 @@
 ﻿CREATE PROCEDURE [process].[PR_CNQ_FicherosProcesoInicial]
 AS
+BEGIN
 	TRUNCATE TABLE [process].[T_CNQ_FicherosProcesados]
 
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
@@ -50,4 +51,5 @@ AS
 	WHERE FirstNameSurname NOT LIKE 'Agent%'
 		AND [TitleSynonym] = RTRIM(SUBSTRING(LTRIM([FirstNameSurname]),1,CHARINDEX(' ',[FirstNameSurname],1)))
 
-RETURN 0
+	RETURN 0
+END
