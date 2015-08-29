@@ -3,8 +3,10 @@ AS
 	TRUNCATE TABLE [process].[T_CNQ_FicherosProcesados]
 
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
-	(IdLinea, FirstNameSurname, COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
-	SELECT IdLinea, TitleFirstNameSurname
+	(IdLinea, Source, Continent, Country, City, Email, FirstNameSurname, CompanyName, Address, PostalCode,
+		TelephoneNo, COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
+	SELECT IdLinea, Source, Continent, Country, City, Email, TitleFirstNameSurname, CompanyName,
+		Address, PostalCode, TelephoneNo
 		,COOPSL.[IdStatusLead],CQRSL.[IdStatusLead]
 		,COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
 	FROM [input].[T_CNQ_Ficheros] F
@@ -14,8 +16,10 @@ AS
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] CQRSC ON F.CQRStatusCity = CQRSC.StatusCity AND CQRSC.IdNetwork = 1
 
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
-	(IdLinea, FirstNameSurname, COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
-	SELECT F.IdLinea, TitleFirstNameSurname
+	(IdLinea, Source, Continent, Country, City, Email, FirstNameSurname, CompanyName, Address, PostalCode,
+		TelephoneNo, COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
+	SELECT F.IdLinea, Source, Continent, Country, City, Email, TitleFirstNameSurname, CompanyName,
+		Address, PostalCode, TelephoneNo
 		,COOPSL.[IdStatusLead],CQRSL.[IdStatusLead]
 		,COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
 	FROM [input].[T_CNQ_Ficheros] F

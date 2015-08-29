@@ -1,17 +1,17 @@
 ﻿CREATE TABLE [process].[T_CNQ_FicherosProcesados]
 (
     [IdLinea] INT NOT NULL PRIMARY KEY, 
-	--[Source] NVARCHAR(80) NULL,
-	--[Continent] NVARCHAR(20) NULL,
-	--[Country] NVARCHAR(50) NULL,
-	--[City] NVARCHAR(80) NULL,
-	--[Email] NVARCHAR(100) NULL,
+	[Source] NVARCHAR(80) NULL,
+	[Continent] NVARCHAR(20) NULL,
+	[Country] NVARCHAR(50) NULL,
+	[City] NVARCHAR(80) NULL,
+	[Email] NVARCHAR(100) NULL,
 	[IdTitle] INT NULL,
 	[FirstNameSurname] NVARCHAR(255) NULL,
-	--[CompanyName] NVARCHAR(255) NULL,
-	--[Address] NVARCHAR(500) NULL,
-	--[PostalCode] NVARCHAR(15) NULL,
-	--[TelephoneNo] NVARCHAR(200) NULL,
+	[CompanyName] NVARCHAR(255) NULL,
+	[Address] NVARCHAR(500) NULL,
+	[PostalCode] NVARCHAR(15) NULL,
+	[TelephoneNo] NVARCHAR(200) NULL,
 	[COOPIdStatusLead] INT NOT NULL,
 	[COOPIdStatusLeadDetail] INT NULL,
 	[CQRIdStatusLead] INT NOT NULL,
@@ -27,3 +27,6 @@
     CONSTRAINT [FK_T_CNQ_FicherosProcesados_T_CNQ_StatusCity_CQR] FOREIGN KEY ([CQRIdStatusCity]) REFERENCES [process].[T_CNQ_StatusCity]([IdStatusCity])
 )
 GO
+
+
+CREATE INDEX [IX_T_CNQ_FicherosProcesados_Column] ON [process].[T_CNQ_FicherosProcesados] ([Email], [FirstNameSurname], [CompanyName])
