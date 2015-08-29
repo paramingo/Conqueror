@@ -49,3 +49,23 @@ VALUES (IdNetwork, Network, NetworkShort)
 -- delete rows that are in the target but not the source
 --WHEN NOT MATCHED BY SOURCE THEN DELETE
 ;
+
+-- Reference Data for T_CNQ_Titles
+MERGE INTO [process].[T_CNQ_Titles] AS Target
+USING (VALUES
+	(1, 'Mr.'),
+	(2, 'Mrs.'),
+	(3, 'Ms.')
+)
+AS Source (IdTitle, Title)
+ON Target.IdTitle = Source.IdTitle
+-- update matched rows
+WHEN MATCHED THEN
+UPDATE SET Title = Source.Title
+-- insert new rows
+WHEN NOT MATCHED BY TARGET THEN
+INSERT (IdTitle, Title)
+VALUES (IdTitle, Title)
+-- delete rows that are in the target but not the source
+--WHEN NOT MATCHED BY SOURCE THEN DELETE
+;
