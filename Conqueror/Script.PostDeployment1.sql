@@ -10,22 +10,42 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
--- Reference Data for T_MB_PuntosTipos
+-- Reference Data for T_CNQ_FicherosTipos
 MERGE INTO [input].[T_CNQ_FicherosTipos] AS Target
 USING (VALUES
-	(1, N'BBDD General'),
-	(2, N'Asociaciones'),
-	(3, N'Direfctorios')
+	(1, 'BBDD General'),
+	(2, 'Asociaciones'),
+	(3, 'Direfctorios')
 )
-AS Source (IdFicheroTipo, DsFicheroTipo)
+AS Source (IdFicheroTipo, FicheroTipo)
 ON Target.IdFicheroTipo = Source.IdFicheroTipo
 -- update matched rows
 WHEN MATCHED THEN
-UPDATE SET DsFicheroTipo = Source.DsFicheroTipo
+UPDATE SET FicheroTipo = Source.FicheroTipo
 -- insert new rows
 WHEN NOT MATCHED BY TARGET THEN
-INSERT (IdFicheroTipo, DsFicheroTipo)
-VALUES (IdFicheroTipo, DsFicheroTipo)
+INSERT (IdFicheroTipo, FicheroTipo)
+VALUES (IdFicheroTipo, FicheroTipo)
+-- delete rows that are in the target but not the source
+--WHEN NOT MATCHED BY SOURCE THEN DELETE
+;
+
+-- Reference Data for T_CNQ_Networks
+MERGE INTO [process].[T_CNQ_Networks] AS Target
+USING (VALUES
+	(1, 'Conqueror','CQR'),
+	(2, 'Cooperative','COOP')
+)
+AS Source (IdNetwork, Network, NetworkShort)
+ON Target.IdNetwork = Source.IdNetwork
+-- update matched rows
+WHEN MATCHED THEN
+UPDATE SET Network = Source.Network
+	,NetworkShort = Source.NetworkShort
+-- insert new rows
+WHEN NOT MATCHED BY TARGET THEN
+INSERT (IdNetwork, Network, NetworkShort)
+VALUES (IdNetwork, Network, NetworkShort)
 -- delete rows that are in the target but not the source
 --WHEN NOT MATCHED BY SOURCE THEN DELETE
 ;
