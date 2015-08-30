@@ -1,6 +1,0 @@
-﻿CREATE PROCEDURE [output].[T_CNQ_ContactosGenerar]
-AS
-BEGIN
-
-	RETURN 0
-END

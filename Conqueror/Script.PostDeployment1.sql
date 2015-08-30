@@ -69,3 +69,22 @@ VALUES (IdTitle, Title)
 -- delete rows that are in the target but not the source
 --WHEN NOT MATCHED BY SOURCE THEN DELETE
 ;
+
+-- Reference Data for T_CNQ_ResultadosFilas
+MERGE INTO [output].[T_CNQ_ResultadosFilas] AS Target
+USING (VALUES
+	(1, 'Nueva'),
+	(2, 'Duplicado Email')
+)
+AS Source (IdResultadoFila, ResultadoFila)
+ON Target.IdResultadoFila = Source.IdResultadoFila
+-- update matched rows
+WHEN MATCHED THEN
+UPDATE SET ResultadoFila = Source.ResultadoFila
+-- insert new rows
+WHEN NOT MATCHED BY TARGET THEN
+INSERT (IdResultadoFila, ResultadoFila)
+VALUES (IdResultadoFila, ResultadoFila)
+-- delete rows that are in the target but not the source
+--WHEN NOT MATCHED BY SOURCE THEN DELETE
+;

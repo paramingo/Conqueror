@@ -13,6 +13,9 @@
 	[Address] NVARCHAR(500) NULL,
 	[PostalCode] NVARCHAR(15) NULL,
 	[TelephoneNo] NVARCHAR(200) NULL,
+	[MobileNo] NVARCHAR(200) NULL,
+	[Fax] NVARCHAR(200) NULL,
+	[Website] NVARCHAR(200) NULL,
 	[COOPIdStatusLead] INT NOT NULL,
 	[COOPIdStatusLeadDetail] INT NULL,
 	[CQRIdStatusLead] INT NOT NULL,
@@ -29,3 +32,6 @@
 )
 GO
 
+
+
+CREATE UNIQUE INDEX [IX_T_CNQ_Contacto_Unico] ON [output].[T_CNQ_Contactos] ([Email],[FirstNameSurname],[CompanyName]) INCLUDE ([IdLinea])

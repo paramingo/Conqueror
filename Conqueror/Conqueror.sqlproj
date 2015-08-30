@@ -118,9 +118,17 @@
     <Build Include="Security\process.sql" />
     <Build Include="Tables\input.T_CNQ_FicherosTipos.sql" />
     <Build Include="Tables\input.T_CNQ_FicherosRegistro.sql" />
-    <Build Include="Tables\input.T_CNQ_Ficheros.sql" />
-    <Build Include="Stored Procedures\input.PR_CNQ_FicheroCargaInicio.sql" />
-    <Build Include="Stored Procedures\input.PR_CNQ_FicheroCargaFin.sql" />
+    <Build Include="Tables\input.T_CNQ_Ficheros.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
+    <Build Include="Stored Procedures\input.PR_CNQ_FicheroCargaInicio.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Stored Procedures\input.PR_CNQ_FicheroCargaFin.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
     <Build Include="Security\CNQ_SSISUser.sql" />
     <Build Include="Tables\process.T_CNQ_Networks.sql" />
     <Build Include="Tables\process.T_CNQ_StatusLead.sql" />
@@ -132,7 +140,11 @@
     <Build Include="Stored Procedures\process.PR_CNQ_FicherosProcesoInicial.sql" />
     <Build Include="ConquerorFullTextCatalog.sql" />
     <Build Include="Tables\output.T_CNQ_Contactos.sql" />
-    <Build Include="Stored Procedures\output.T_CNQ_ContactosGenerar.sql" />
+    <Build Include="Stored Procedures\output.PR_CNQ_ContactosGenerar.sql" />
+    <Build Include="Tables\output.T_CNQ_LogProcesoFilas.sql" />
+    <Build Include="Tables\output.T_CNQ_ResultadosFilas.sql" />
+    <Build Include="Stored Procedures\output.PR_CNQ_ContactosFusion.sql" />
+    <Build Include="Stored Procedures\output.PR_CNQ_ContactosBestMatch.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />
