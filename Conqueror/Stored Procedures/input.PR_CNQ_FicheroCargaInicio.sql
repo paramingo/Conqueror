@@ -17,5 +17,9 @@ END
 
 GO
 
-GRANT EXECUTE ON [input].[PR_CNQ_FicheroCargaInicio] TO CNQ_SSISUser;
+GRANT EXECUTE
+    ON OBJECT::[input].[PR_CNQ_FicheroCargaInicio] TO [CNQ_SSISUser]
+    AS [dbo];
+
+
 GO
