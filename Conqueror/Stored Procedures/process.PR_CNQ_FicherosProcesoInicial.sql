@@ -43,12 +43,16 @@ BEGIN
 	INNER JOIN [input].[T_CNQ_Ficheros] F ON FP.IdLinea = F.IdLinea
 	INNER JOIN [process].[T_CNQ_StatusLeadDetails] SLD ON FP.[CQRIdStatusLead] = SLD.[IdStatusLead]
 	WHERE F.CQRStatusLead LIKE '%'+SLD.StatusLeadDetail+'%'
+	
+	UPDATE [process].[T_CNQ_FicherosProcesados]
+	SET FirstNameSurname = NULL
+	WHERE FirstNameSurname LIKE 'Agent%'
 
 	UPDATE [process].[T_CNQ_FicherosProcesados]
 	SET IdTitle = TS.IdTitle
 		,FirstNameSurname = LTRIM(SUBSTRING(RTRIM([FirstNameSurname]),CHARINDEX(' ',[FirstNameSurname],1),LEN([FirstNameSurname])))
 	FROM [process].[T_CNQ_TitleSynonym] TS
-	WHERE FirstNameSurname NOT LIKE 'Agent%'
+	WHERE FirstNameSurname IS NOT NULL
 		AND [TitleSynonym] = RTRIM(SUBSTRING(LTRIM([FirstNameSurname]),1,CHARINDEX(' ',[FirstNameSurname],1)))
 
 	RETURN 0
