@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [output].[PR_CNQ_ContactosGenerar]
+﻿
+CREATE PROCEDURE [output].[PR_CNQ_ContactosGenerar]
 	@RowLimit int = null
 AS
 BEGIN
@@ -39,6 +40,7 @@ BEGIN
 		CompanyName, Address, PostalCode, TelephoneNo, COOPIdStatusLead, COOPIdStatusLeadDetail,
 		CQRIdStatusLead, CQRIdStatusLeadDetail, COOPIdStatusCity, CQRIdStatusCity
 	FROM [process].[T_CNQ_FicherosProcesados]
+	WHERE Email IS NOT NULL
 	ORDER BY Email, FirstNameSurname, CompanyName
 
 	OPEN LineasFichero
@@ -52,30 +54,13 @@ BEGIN
 		PRINT @IdLinea
 
 		SET @IdLineaComparacion = NULL
-		SET @EmailComparacion = NULL
-		SET @ContactosSimilares = NULL
-		
-		SELECT @IdLineaComparacion = MIN(IdLinea)
-			,@EmailComparacion = Email
-			,@ContactosSimilares = COUNT(*)
-		FROM [output].[T_CNQ_Contactos]
-		WHERE Email = @Email
-		GROUP BY Email
 
-		IF @IdLineaComparacion IS NOT NULL
+		EXEC @IdLineaComparacion = [output].[PR_CNQ_ContactosBestMatch] @Email, @FirstNameSurname, @CompanyName
+
+		IF @IdLineaComparacion > 0
 		BEGIN
-			SET @FirstNameSurnameComparacion = NULL
-			SET @CompanyNameComparacion = NULL
+			EXEC [output].[PR_CNQ_ContactosFusion] @IdLinea, @IdLineaComparacion
 
-			IF @ContactosSimilares = 1
-			BEGIN
-				SELECT @IdLineaComparacion = IdLinea
-					,@EmailComparacion = Email
-					,@FirstNameSurnameComparacion = FirstNameSurname
-					,@CompanyNameComparacion = CompanyName
-				FROM [output].[T_CNQ_Contactos]
-				WHERE Email = @Email
-			END
 			INSERT INTO output.T_CNQ_LogProcesoFilas VALUES (@IdLinea, 2, @IdLineaComparacion)
 		END
 		ELSE -- Nuevo

@@ -111,6 +111,7 @@
     <Folder Include="Security\" />
     <Folder Include="Tables" />
     <Folder Include="Stored Procedures" />
+    <Folder Include="Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\input.sql" />
@@ -134,17 +135,30 @@
     <Build Include="Tables\process.T_CNQ_StatusLead.sql" />
     <Build Include="Tables\process.T_CNQ_StatusCity.sql" />
     <Build Include="Tables\process.T_CNQ_StatusLeadDetails.sql" />
-    <Build Include="Tables\process.T_CNQ_FicherosProcesados.sql" />
+    <Build Include="Tables\process.T_CNQ_FicherosProcesados.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
     <Build Include="Tables\process.T_CNQ_Titles.sql" />
     <Build Include="Tables\process.T_CNQ_TitleSynonym.sql" />
     <Build Include="Stored Procedures\process.PR_CNQ_FicherosProcesoInicial.sql" />
     <Build Include="ConquerorFullTextCatalog.sql" />
     <Build Include="Tables\output.T_CNQ_Contactos.sql" />
-    <Build Include="Stored Procedures\output.PR_CNQ_ContactosGenerar.sql" />
+    <Build Include="Stored Procedures\output.PR_CNQ_ContactosGenerar.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
     <Build Include="Tables\output.T_CNQ_LogProcesoFilas.sql" />
     <Build Include="Tables\output.T_CNQ_ResultadosFilas.sql" />
-    <Build Include="Stored Procedures\output.PR_CNQ_ContactosFusion.sql" />
-    <Build Include="Stored Procedures\output.PR_CNQ_ContactosBestMatch.sql" />
+    <Build Include="Stored Procedures\output.PR_CNQ_ContactosFusion.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Stored Procedures\output.PR_CNQ_ContactosBestMatch.sql">
+      <AnsiNulls>Off</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo.FicherosProcesadosFullTextIndex.sql" />
+    <Build Include="Functions\process.FN_CNQ_Levenshtein.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />
