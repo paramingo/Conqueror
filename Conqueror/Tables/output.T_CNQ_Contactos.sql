@@ -32,4 +32,4 @@ GO
 
 
 
-CREATE UNIQUE INDEX [IX_T_CNQ_Contacto_Unico] ON [output].[T_CNQ_Contactos] ([Email],[FirstNameSurname],[CompanyName]) INCLUDE ([IdLinea])
+CREATE UNIQUE INDEX [IX_T_CNQ_Contacto_Unico] ON [output].[T_CNQ_Contactos] ([Email],[FirstNameSurname],[CompanyName],[IdGeography]) INCLUDE ([IdLinea])

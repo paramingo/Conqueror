@@ -49,11 +49,9 @@ BEGIN
 
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-		PRINT @IdLinea
-
 		SET @IdLineaComparacion = NULL
 
-		EXEC @IdLineaComparacion = [output].[PR_CNQ_ContactosBestMatch] @Email, @FirstNameSurname, @CompanyName
+		EXEC @IdLineaComparacion = [output].[PR_CNQ_ContactosBestMatch] @Email, @FirstNameSurname, @CompanyName, @IdGeography
 
 		IF @IdLineaComparacion > 0
 		BEGIN
