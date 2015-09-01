@@ -12,9 +12,7 @@ BEGIN
 
 	DECLARE @IdLinea int,
 		@Source nvarchar(80),
-		@Continent nvarchar(20),
-		@Country nvarchar(50),
-		@City nvarchar(80),
+		@IdGeography int,
 		@Email nvarchar(100),
 		@IdTitle int,
 		@FirstNameSurname nvarchar(255),
@@ -36,7 +34,7 @@ BEGIN
 		@ContactosSimilares int
 
 	DECLARE LineasFichero CURSOR FAST_FORWARD FOR
-	SELECT TOP (@RowLimit) IdLinea, Source, Continent, Country, City, Email, IdTitle, FirstNameSurname,
+	SELECT TOP (@RowLimit) IdLinea, Source, IdGeography, Email, IdTitle, FirstNameSurname,
 		CompanyName, Address, PostalCode, TelephoneNo, COOPIdStatusLead, COOPIdStatusLeadDetail,
 		CQRIdStatusLead, CQRIdStatusLeadDetail, COOPIdStatusCity, CQRIdStatusCity
 	FROM [process].[T_CNQ_FicherosProcesados]
@@ -45,7 +43,7 @@ BEGIN
 
 	OPEN LineasFichero
 
-	FETCH NEXT FROM LineasFichero INTO @IdLinea, @Source, @Continent, @Country, @City, @Email, @IdTitle,
+	FETCH NEXT FROM LineasFichero INTO @IdLinea, @Source, @IdGeography, @Email, @IdTitle,
 		@FirstNameSurname, @CompanyName, @Address, @PostalCode, @TelephoneNo, @COOPIdStatusLead,
 		@COOPIdStatusLeadDetail, @CQRIdStatusLead, @CQRIdStatusLeadDetail, @COOPIdStatusCity, @CQRIdStatusCity
 
@@ -66,18 +64,18 @@ BEGIN
 		ELSE -- Nuevo
 		BEGIN
 			INSERT INTO [output].[T_CNQ_Contactos]
-			(IdLinea, Source, Continent, Country, City, Email, IdTitle, FirstNameSurname, CompanyName, Address,
+			(IdLinea, Source, IdGeography, Email, IdTitle, FirstNameSurname, CompanyName, Address,
 				PostalCode, TelephoneNo, COOPIdStatusLead, COOPIdStatusLeadDetail, CQRIdStatusLead,
 				CQRIdStatusLeadDetail, COOPIdStatusCity, CQRIdStatusCity)
 			VALUES
-			(@IdLinea, @Source, @Continent, @Country, @City, @Email, @IdTitle, @FirstNameSurname,
-				@CompanyName, @Address, @PostalCode, @TelephoneNo, @COOPIdStatusLead, @COOPIdStatusLeadDetail,
+			(@IdLinea, @Source, @IdGeography, @Email, @IdTitle, @FirstNameSurname, @CompanyName,
+				@Address, @PostalCode, @TelephoneNo, @COOPIdStatusLead, @COOPIdStatusLeadDetail,
 				@CQRIdStatusLead, @CQRIdStatusLeadDetail, @COOPIdStatusCity, @CQRIdStatusCity)
 
 			INSERT INTO output.T_CNQ_LogProcesoFilas VALUES (@IdLinea, 1, NULL)
 		END
 
-		FETCH NEXT FROM LineasFichero INTO @IdLinea, @Source, @Continent, @Country, @City, @Email, @IdTitle,
+		FETCH NEXT FROM LineasFichero INTO @IdLinea, @Source, @IdGeography, @Email, @IdTitle,
 			@FirstNameSurname, @CompanyName, @Address, @PostalCode, @TelephoneNo, @COOPIdStatusLead,
 			@COOPIdStatusLeadDetail, @CQRIdStatusLead, @CQRIdStatusLeadDetail, @COOPIdStatusCity, @CQRIdStatusCity
 	END

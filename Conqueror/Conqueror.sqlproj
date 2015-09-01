@@ -159,6 +159,7 @@
     </Build>
     <Build Include="dbo.FicherosProcesadosFullTextIndex.sql" />
     <Build Include="Functions\process.FN_CNQ_Levenshtein.sql" />
+    <Build Include="Tables\process.T_CNQ_Geography.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />

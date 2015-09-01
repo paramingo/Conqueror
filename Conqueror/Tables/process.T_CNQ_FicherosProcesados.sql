@@ -1,9 +1,7 @@
 ﻿CREATE TABLE [process].[T_CNQ_FicherosProcesados] (
     [IdLinea]                INT            NOT NULL,
     [Source]                 NVARCHAR (80)  NULL,
-    [Continent]              NVARCHAR (20)  NULL,
-    [Country]                NVARCHAR (50)  NULL,
-    [City]                   NVARCHAR (80)  NULL,
+    [IdGeography]            INT            NULL,
     [Email]                  NVARCHAR (100) NULL,
     [IdTitle]                INT            NULL,
     [FirstNameSurname]       NVARCHAR (255) NULL,
@@ -24,7 +22,8 @@
     CONSTRAINT [FK_T_CNQ_FicherosProcesados_T_CNQ_StatusLead_CQR] FOREIGN KEY ([CQRIdStatusLead]) REFERENCES [process].[T_CNQ_StatusLead] ([IdStatusLead]),
     CONSTRAINT [FK_T_CNQ_FicherosProcesados_T_CNQ_StatusLeadDetails_COOP] FOREIGN KEY ([COOPIdStatusLeadDetail]) REFERENCES [process].[T_CNQ_StatusLeadDetails] ([IdStatusLeadDetail]),
     CONSTRAINT [FK_T_CNQ_FicherosProcesados_T_CNQ_StatusLeadDetailsCQR] FOREIGN KEY ([CQRIdStatusLeadDetail]) REFERENCES [process].[T_CNQ_StatusLeadDetails] ([IdStatusLeadDetail]),
-    CONSTRAINT [FK_T_CNQ_FicherosProcesados_T_CNQ_Titles] FOREIGN KEY ([IdTitle]) REFERENCES [process].[T_CNQ_Titles] ([IdTitle])
+    CONSTRAINT [FK_T_CNQ_FicherosProcesados_T_CNQ_Titles] FOREIGN KEY ([IdTitle]) REFERENCES [process].[T_CNQ_Titles] ([IdTitle]),
+    CONSTRAINT [FK_T_CNQ_FicherosProcesados_T_CNQ_Geography] FOREIGN KEY ([IdGeography]) REFERENCES [process].[T_CNQ_Geography] ([IdGeography])
 );
 
 
