@@ -112,6 +112,7 @@
     <Folder Include="Tables" />
     <Folder Include="Stored Procedures" />
     <Folder Include="Functions" />
+    <Folder Include="Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\input.sql" />
@@ -160,6 +161,13 @@
     <Build Include="dbo.FicherosProcesadosFullTextIndex.sql" />
     <Build Include="Functions\process.FN_CNQ_Levenshtein.sql" />
     <Build Include="Tables\process.T_CNQ_Geography.sql" />
+    <Build Include="Views\output.V_CNQ_ContactosConsolidar.sql" />
+    <Build Include="Tables\output.T_CNQ_ContactosConsolidar.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Stored Procedures\output.PR_CNQ_ContactosConsolidar.sql" />
+    <Build Include="Security\CNQ_Conqueror.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />
