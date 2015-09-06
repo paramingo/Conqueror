@@ -9,7 +9,7 @@
     [TitleFirstNameSurname] NVARCHAR (255) NULL,
     [CompanyName]           NVARCHAR (255) NULL,
     [Address]               NVARCHAR (500) NULL,
-    [PostalCode]            NVARCHAR (15)  NULL,
+    [PostalCode]            NVARCHAR (40)  NULL,
     [TelephoneNo]           NVARCHAR (200) NULL,
     [COOPStatusLead]        NVARCHAR (60)  NULL,
     [CQRStatusLead]         NVARCHAR (60)  NULL,

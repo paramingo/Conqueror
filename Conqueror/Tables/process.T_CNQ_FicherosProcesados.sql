@@ -7,7 +7,7 @@
     [FirstNameSurname]       NVARCHAR (255) NULL,
     [CompanyName]            NVARCHAR (255) NULL,
     [Address]                NVARCHAR (500) NULL,
-    [PostalCode]             NVARCHAR (15)  NULL,
+    [PostalCode]             NVARCHAR (40)  NULL,
     [TelephoneNo]            NVARCHAR (200) NULL,
     [COOPIdStatusLead]       INT            NOT NULL,
     [COOPIdStatusLeadDetail] INT            NULL,
