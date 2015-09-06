@@ -168,6 +168,9 @@
     </Build>
     <Build Include="Stored Procedures\output.PR_CNQ_ContactosConsolidar.sql" />
     <Build Include="Security\CNQ_Conqueror.sql" />
+    <Build Include="Tables\input.T_CNQ_FicherosAsociaciones.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />
