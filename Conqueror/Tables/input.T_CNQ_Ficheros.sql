@@ -4,7 +4,7 @@
     [Source]                NVARCHAR (80)  NULL,
     [Continent]             NVARCHAR (20)  NULL,
     [Country]               NVARCHAR (50)  NULL,
-    [City]                  NVARCHAR (80)  NULL,
+    [City]                  NVARCHAR (100) NULL,
     [Email]                 NVARCHAR (100) NULL,
     [TitleFirstNameSurname] NVARCHAR (255) NULL,
     [CompanyName]           NVARCHAR (255) NULL,

@@ -3,7 +3,7 @@
 	[IdGeography] INT NOT NULL IDENTITY,
     [Continent]   NVARCHAR (20)  NULL,
     [Country]     NVARCHAR (50)  NULL,
-    [City]        NVARCHAR (80)  NULL, 
+    [City]        NVARCHAR (100) NULL, 
     CONSTRAINT [AK_T_CNQ_Geography_IdGeography] UNIQUE ([IdGeography])
 )
 

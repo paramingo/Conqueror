@@ -3,7 +3,7 @@
     [Source]           NVARCHAR (80)  NULL,
     [Continent]        NVARCHAR (20)  NULL,
     [Country]          NVARCHAR (50)  NULL,
-    [City]             NVARCHAR (80)  NULL,
+    [City]             NVARCHAR (100)  NULL,
     [Email]            NVARCHAR (100) NOT NULL,
     [Title]            VARCHAR  (5)   NULL,
     [FirstNameSurname] NVARCHAR (255) NOT NULL,
