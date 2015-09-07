@@ -17,7 +17,7 @@ BEGIN
 	)
 
 	INSERT INTO @ContactosMatch
-	SELECT IdLinea, Email, FirstNameSurname, CompanyName
+	SELECT IdLinea, Email, [FirstName], CompanyName
 	FROM [output].[T_CNQ_Contactos]
 	WHERE Email = @Email
 		AND IdGeography = @IdGeography -- Se admiten distintas ciudades para guardar direcciones de sucursales

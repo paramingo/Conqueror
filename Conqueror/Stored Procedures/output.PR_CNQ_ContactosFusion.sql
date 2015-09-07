@@ -4,14 +4,14 @@ CREATE PROCEDURE [output].[PR_CNQ_ContactosFusion]
 	@IdLineaComparacion int
 AS
 BEGIN
-	IF (SELECT FirstNameSurname FROM [output].[T_CNQ_Contactos] WHERE IdLinea = @IdLineaComparacion) IS NULL
+	IF (SELECT [FirstName] FROM [output].[T_CNQ_Contactos] WHERE IdLinea = @IdLineaComparacion) IS NULL
 		UPDATE [output].[T_CNQ_Contactos]
-		SET FirstNameSurname = (SELECT [FirstName] FROM [process].[T_CNQ_FicherosProcesados] WHERE IdLinea = @IdLineaNueva)
+		SET [FirstName] = (SELECT [FirstName] FROM [process].[T_CNQ_FicherosProcesados] WHERE IdLinea = @IdLineaNueva)
 		WHERE IdLinea = @IdLineaComparacion
 	ELSE IF (SELECT LEN([FirstName]) FROM [process].[T_CNQ_FicherosProcesados] WHERE IdLinea = @IdLineaNueva)
-			> (SELECT LEN(FirstNameSurname) FROM [output].[T_CNQ_Contactos] WHERE IdLinea = @IdLineaComparacion)
+			> (SELECT LEN([FirstName]) FROM [output].[T_CNQ_Contactos] WHERE IdLinea = @IdLineaComparacion)
 		UPDATE [output].[T_CNQ_Contactos]
-		SET FirstNameSurname = (SELECT [FirstName] FROM [process].[T_CNQ_FicherosProcesados] WHERE IdLinea = @IdLineaNueva)
+		SET [FirstName] = (SELECT [FirstName] FROM [process].[T_CNQ_FicherosProcesados] WHERE IdLinea = @IdLineaNueva)
 		WHERE IdLinea = @IdLineaComparacion
 
 	RETURN 0

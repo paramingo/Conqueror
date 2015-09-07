@@ -62,7 +62,7 @@ BEGIN
 		ELSE -- Nuevo
 		BEGIN
 			INSERT INTO [output].[T_CNQ_Contactos]
-			(IdLinea, Source, IdGeography, Email, IdTitle, FirstNameSurname, CompanyName, Address,
+			(IdLinea, Source, IdGeography, Email, IdTitle, [FirstName], CompanyName, Address,
 				PostalCode, TelephoneNo, COOPIdStatusLead, COOPIdStatusLeadDetail, CQRIdStatusLead,
 				CQRIdStatusLeadDetail, COOPIdStatusCity, CQRIdStatusCity)
 			VALUES

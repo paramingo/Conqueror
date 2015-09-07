@@ -6,7 +6,8 @@
 	[IdGeography] INT NULL,
 	[Email] NVARCHAR(100) NULL,
 	[IdTitle] INT NULL,
-	[FirstNameSurname] NVARCHAR(255) NULL,
+	[FirstName] NVARCHAR(255) NULL,
+	[Surname] NVARCHAR(255) NULL,
 	[CompanyName] NVARCHAR(255) NULL,
 	[Address] NVARCHAR(500) NULL,
 	[PostalCode] NVARCHAR(40) NULL,
@@ -32,4 +33,4 @@ GO
 
 
 
-CREATE UNIQUE INDEX [IX_T_CNQ_Contacto_Unico] ON [output].[T_CNQ_Contactos] ([Email],[FirstNameSurname],[CompanyName],[IdGeography]) INCLUDE ([IdLinea])
+CREATE UNIQUE INDEX [IX_T_CNQ_Contacto_Unico] ON [output].[T_CNQ_Contactos] ([Email],[FirstName],[CompanyName],[IdGeography]) INCLUDE ([IdLinea])
