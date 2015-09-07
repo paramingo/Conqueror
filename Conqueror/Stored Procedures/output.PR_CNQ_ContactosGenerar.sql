@@ -34,12 +34,12 @@ BEGIN
 		@ContactosSimilares int
 
 	DECLARE LineasFichero CURSOR FAST_FORWARD FOR
-	SELECT TOP (@RowLimit) IdLinea, Source, IdGeography, Email, IdTitle, FirstNameSurname,
+	SELECT TOP (@RowLimit) IdLinea, Source, IdGeography, Email, IdTitle, [FirstName],
 		CompanyName, Address, PostalCode, TelephoneNo, COOPIdStatusLead, COOPIdStatusLeadDetail,
 		CQRIdStatusLead, CQRIdStatusLeadDetail, COOPIdStatusCity, CQRIdStatusCity
 	FROM [process].[T_CNQ_FicherosProcesados]
 	WHERE Email IS NOT NULL
-	ORDER BY Email, FirstNameSurname, CompanyName
+	ORDER BY Email, [FirstName], CompanyName
 
 	OPEN LineasFichero
 

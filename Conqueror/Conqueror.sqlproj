@@ -24,8 +24,8 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
-    <AnsiNulls>False</AnsiNulls>
-    <QuotedIdentifier>False</QuotedIdentifier>
+    <AnsiNulls>True</AnsiNulls>
+    <QuotedIdentifier>True</QuotedIdentifier>
     <IncludeSchemaNameInFileName>True</IncludeSchemaNameInFileName>
     <DelayedDurability>DISABLED</DelayedDurability>
     <AutoCreateStatisticsIncremental>False</AutoCreateStatisticsIncremental>
@@ -50,7 +50,7 @@
     <DateCorrelationOptimizationOn>False</DateCorrelationOptimizationOn>
     <Parameterization>SIMPLE</Parameterization>
     <AllowSnapshotIsolation>True</AllowSnapshotIsolation>
-    <ReadCommittedSnapshot>True</ReadCommittedSnapshot>
+    <ReadCommittedSnapshot>False</ReadCommittedSnapshot>
     <VardecimalStorageFormatOn>True</VardecimalStorageFormatOn>
     <SupplementalLoggingOn>False</SupplementalLoggingOn>
     <CompatibilityMode>120</CompatibilityMode>
@@ -137,7 +137,7 @@
     <Build Include="Tables\process.T_CNQ_StatusCity.sql" />
     <Build Include="Tables\process.T_CNQ_StatusLeadDetails.sql" />
     <Build Include="Tables\process.T_CNQ_FicherosProcesados.sql">
-      <AnsiNulls>Off</AnsiNulls>
+      <AnsiNulls>ProjectDefault</AnsiNulls>
     </Build>
     <Build Include="Tables\process.T_CNQ_Titles.sql" />
     <Build Include="Tables\process.T_CNQ_TitleSynonym.sql" />
