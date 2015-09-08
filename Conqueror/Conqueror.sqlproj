@@ -171,6 +171,8 @@
     <Build Include="Tables\input.T_CNQ_FicherosAsociaciones.sql">
       <AnsiNulls>Off</AnsiNulls>
     </Build>
+    <Build Include="Views\output.V_CNQ_InformeCargas.sql" />
+    <Build Include="Views\output.V_CNQ_InformeTrazaContactos.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />
