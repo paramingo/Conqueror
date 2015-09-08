@@ -69,17 +69,6 @@ BEGIN
 	INNER JOIN [input].[T_CNQ_Ficheros] F ON FP.IdLinea = F.IdLinea
 	INNER JOIN [process].[T_CNQ_StatusLeadDetails] SLD ON FP.[CQRIdStatusLead] = SLD.[IdStatusLead]
 	WHERE F.CQRStatusLead LIKE '%'+SLD.StatusLeadDetail+'%'
-	
-	UPDATE [process].[T_CNQ_FicherosProcesados]
-	SET FirstName = NULL
-	WHERE FirstName LIKE 'Agent%'
-
-	UPDATE [process].[T_CNQ_FicherosProcesados]
-	SET IdTitle = TS.IdTitle
-		,FirstName = LTRIM(SUBSTRING(RTRIM([FirstName]),CHARINDEX(' ',[FirstName],1),LEN([FirstName])))
-	FROM [process].[T_CNQ_TitleSynonym] TS
-	WHERE FirstName IS NOT NULL
-		AND [TitleSynonym] = RTRIM(SUBSTRING(LTRIM([FirstName]),1,CHARINDEX(' ',[FirstName],1)))
 
 	-- Asociaciones
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
@@ -147,10 +136,18 @@ BEGIN
 	INNER JOIN [input].[T_CNQ_FicherosAsociaciones] A ON FP.IdLinea = A.IdLinea
 	INNER JOIN [process].[T_CNQ_StatusLeadDetails] SLD ON FP.[CQRIdStatusLead] = SLD.[IdStatusLead]
 	WHERE A.CQRStatusLead LIKE '%'+SLD.StatusLeadDetail+'%'
-	
+
+	-- Común
 	UPDATE [process].[T_CNQ_FicherosProcesados]
 	SET FirstName = NULL
-	WHERE FirstName LIKE 'Agent%'
+	WHERE FirstName IN ('Agent','Agente')
+
+	UPDATE [process].[T_CNQ_FicherosProcesados]
+	SET IdTitle = TS.IdTitle
+		,FirstName = LTRIM(SUBSTRING(RTRIM([FirstName]),CHARINDEX(' ',[FirstName],1),LEN([FirstName])))
+	FROM [process].[T_CNQ_TitleSynonym] TS
+	WHERE FirstName IS NOT NULL
+		AND [TitleSynonym] = RTRIM(SUBSTRING(LTRIM([FirstName]),1,CHARINDEX(' ',[FirstName],1)))
 
 	-- Reconstrucción de índices
 	ALTER INDEX ALL ON process.T_CNQ_FicherosProcesados REBUILD

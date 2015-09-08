@@ -1,9 +1,11 @@
 ﻿
+
+
 CREATE PROCEDURE [output].[PR_CNQ_ContactosGenerar]
 	@RowLimit int = null
 AS
 BEGIN
-	IF @RowLimit IS NULL SET @RowLimit = 1000000000
+	IF @RowLimit IS NULL SET @RowLimit = (SELECT COUNT(*) FROM [process].[T_CNQ_FicherosProcesados])
 
 	TRUNCATE TABLE [output].[T_CNQ_Contactos]
 	TRUNCATE TABLE [output].[T_CNQ_LogProcesoFilas]
@@ -11,15 +13,20 @@ BEGIN
 	SET NOCOUNT ON
 
 	DECLARE @IdLinea int,
+		@IdFichero int,
 		@Source nvarchar(80),
 		@IdGeography int,
 		@Email nvarchar(100),
 		@IdTitle int,
-		@FirstNameSurname nvarchar(255),
+		@FirstName nvarchar(255),
+		@Surname nvarchar(255),
 		@CompanyName nvarchar(255),
 		@Address nvarchar(500),
 		@PostalCode nvarchar(15),
 		@TelephoneNo nvarchar(200),
+		@MobileNo nvarchar(200),
+		@Fax nvarchar(200),
+		@Website nvarchar(200),
 		@COOPIdStatusLead int,
 		@COOPIdStatusLeadDetail int,
 		@CQRIdStatusLead int,
@@ -27,55 +34,62 @@ BEGIN
 		@COOPIdStatusCity int,
 		@CQRIdStatusCity int
 
-	DECLARE @IdLineaComparacion int,
+	DECLARE @IdContactoComparacion int,
 		@EmailComparacion nvarchar(100),
 		@FirstNameSurnameComparacion nvarchar(255),
 		@CompanyNameComparacion nvarchar(255),
 		@ContactosSimilares int
 
 	DECLARE LineasFichero CURSOR FAST_FORWARD FOR
-	SELECT TOP (@RowLimit) IdLinea, Source, IdGeography, Email, IdTitle, [FirstName],
-		CompanyName, Address, PostalCode, TelephoneNo, COOPIdStatusLead, COOPIdStatusLeadDetail,
-		CQRIdStatusLead, CQRIdStatusLeadDetail, COOPIdStatusCity, CQRIdStatusCity
+	SELECT TOP (@RowLimit) IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname,
+		CompanyName, Address, PostalCode, TelephoneNo, MobileNo, Fax, Website, COOPIdStatusLead,
+		COOPIdStatusLeadDetail, CQRIdStatusLead, CQRIdStatusLeadDetail, COOPIdStatusCity, CQRIdStatusCity
 	FROM [process].[T_CNQ_FicherosProcesados]
 	WHERE Email IS NOT NULL
-	ORDER BY Email, [FirstName], CompanyName
+	ORDER BY Email, [FirstName], CompanyName, IdLinea, IdFichero
 
 	OPEN LineasFichero
 
-	FETCH NEXT FROM LineasFichero INTO @IdLinea, @Source, @IdGeography, @Email, @IdTitle,
-		@FirstNameSurname, @CompanyName, @Address, @PostalCode, @TelephoneNo, @COOPIdStatusLead,
-		@COOPIdStatusLeadDetail, @CQRIdStatusLead, @CQRIdStatusLeadDetail, @COOPIdStatusCity, @CQRIdStatusCity
+	FETCH NEXT FROM LineasFichero INTO @IdLinea, @IdFichero, @Source, @IdGeography, @Email, @IdTitle,
+		@FirstName, @Surname, @CompanyName, @Address, @PostalCode, @TelephoneNo, @MobileNo, @Fax,
+		@Website, @COOPIdStatusLead, @COOPIdStatusLeadDetail, @CQRIdStatusLead, @CQRIdStatusLeadDetail,
+		@COOPIdStatusCity, @CQRIdStatusCity
 
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-		SET @IdLineaComparacion = NULL
+	PRINT @IdLinea
+		SET @IdContactoComparacion = NULL
 
-		EXEC @IdLineaComparacion = [output].[PR_CNQ_ContactosBestMatch] @Email, @FirstNameSurname, @CompanyName, @IdGeography
+		EXEC @IdContactoComparacion = [output].[PR_CNQ_ContactosBestMatch] @Email, @FirstName, @Surname,@CompanyName, @IdGeography
 
-		IF @IdLineaComparacion > 0
+		IF @IdContactoComparacion > 0
 		BEGIN
-			EXEC [output].[PR_CNQ_ContactosFusion] @IdLinea, @IdLineaComparacion
+			EXEC [output].[PR_CNQ_ContactosFusion] @IdLinea, @IdFichero, @IdContactoComparacion
 
-			INSERT INTO output.T_CNQ_LogProcesoFilas VALUES (@IdLinea, 2, @IdLineaComparacion)
+			INSERT INTO output.T_CNQ_LogProcesoFilas
+			(IdLinea, IdFichero, IdResultadoFila, IdContactoComparacion)
+			VALUES (@IdLinea, @IdFichero, 2, @IdContactoComparacion)
 		END
 		ELSE -- Nuevo
 		BEGIN
 			INSERT INTO [output].[T_CNQ_Contactos]
-			(IdLinea, Source, IdGeography, Email, IdTitle, [FirstName], CompanyName, Address,
-				PostalCode, TelephoneNo, COOPIdStatusLead, COOPIdStatusLeadDetail, CQRIdStatusLead,
+			(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName, Address,
+				PostalCode, TelephoneNo, MobileNo, Fax, Website, COOPIdStatusLead, COOPIdStatusLeadDetail, CQRIdStatusLead,
 				CQRIdStatusLeadDetail, COOPIdStatusCity, CQRIdStatusCity)
 			VALUES
-			(@IdLinea, @Source, @IdGeography, @Email, @IdTitle, @FirstNameSurname, @CompanyName,
-				@Address, @PostalCode, @TelephoneNo, @COOPIdStatusLead, @COOPIdStatusLeadDetail,
-				@CQRIdStatusLead, @CQRIdStatusLeadDetail, @COOPIdStatusCity, @CQRIdStatusCity)
+			(@IdLinea, @IdFichero, @Source, @IdGeography, @Email, @IdTitle, @FirstName, @Surname, @CompanyName, @Address,
+				@PostalCode, @TelephoneNo, @MobileNo, @Fax, @Website, @COOPIdStatusLead, @COOPIdStatusLeadDetail, @CQRIdStatusLead,
+				@CQRIdStatusLeadDetail, @COOPIdStatusCity, @CQRIdStatusCity)
 
-			INSERT INTO output.T_CNQ_LogProcesoFilas VALUES (@IdLinea, 1, NULL)
+			INSERT INTO output.T_CNQ_LogProcesoFilas
+			(IdLinea, IdFichero, IdResultadoFila, IdContactoComparacion)
+			VALUES (@IdLinea, @IdFichero, 1, @@IDENTITY)
 		END
 
-		FETCH NEXT FROM LineasFichero INTO @IdLinea, @Source, @IdGeography, @Email, @IdTitle,
-			@FirstNameSurname, @CompanyName, @Address, @PostalCode, @TelephoneNo, @COOPIdStatusLead,
-			@COOPIdStatusLeadDetail, @CQRIdStatusLead, @CQRIdStatusLeadDetail, @COOPIdStatusCity, @CQRIdStatusCity
+		FETCH NEXT FROM LineasFichero INTO @IdLinea, @IdFichero, @Source, @IdGeography, @Email, @IdTitle,
+			@FirstName, @Surname, @CompanyName, @Address, @PostalCode, @TelephoneNo, @MobileNo, @Fax,
+			@Website, @COOPIdStatusLead, @COOPIdStatusLeadDetail, @CQRIdStatusLead, @CQRIdStatusLeadDetail,
+			@COOPIdStatusCity, @CQRIdStatusCity
 	END
 
 	CLOSE LineasFichero
