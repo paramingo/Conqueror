@@ -137,6 +137,73 @@ BEGIN
 	INNER JOIN [process].[T_CNQ_StatusLeadDetails] SLD ON FP.[CQRIdStatusLead] = SLD.[IdStatusLead]
 	WHERE A.CQRStatusLead LIKE '%'+SLD.StatusLeadDetail+'%'
 
+	-- Directorios
+	INSERT INTO [process].[T_CNQ_FicherosProcesados]
+	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName,
+		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
+		COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
+	SELECT IdLinea, IdFichero, Source, G.IdGeography, Email, TS.IdTitle, FirstName, Surname, CompanyName,
+		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
+		COOPSL.[IdStatusLead],CQRSL.[IdStatusLead],
+		COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
+	FROM [input].[T_CNQ_FicherosDirectorios] D
+	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(D.Continent,'NULL') = ISNULL(G.Continent,'NULL')
+											AND ISNULL(D.Country,'NULL') = ISNULL(G.Country,'NULL')
+											AND ISNULL(D.City,'NULL') = ISNULL(G.City,'NULL')
+	LEFT OUTER JOIN [process].[T_CNQ_TitleSynonym] TS ON D.Title = TS.TitleSynonym
+	INNER JOIN [process].[T_CNQ_StatusLead] COOPSL ON D.COOPStatusLead = COOPSL.StatusLead AND COOPSL.IdNetwork = 2
+	INNER JOIN [process].[T_CNQ_StatusLead] CQRSL ON D.CQRStatusLead = CQRSL.StatusLead AND CQRSL.IdNetwork = 1
+	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] COOPSC ON D.COOPStatusCity = COOPSC.StatusCity AND COOPSC.IdNetwork = 2
+	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] CQRSC ON D.CQRStatusCity = CQRSC.StatusCity AND CQRSC.IdNetwork = 1
+	
+	INSERT INTO [process].[T_CNQ_FicherosProcesados]
+	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName,
+		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
+		COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
+	SELECT IdLinea, IdFichero, Source, G.IdGeography, Email, TS.IdTitle, FirstName, Surname, CompanyName,
+		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
+		COOPSL.[IdStatusLead],CQRSL.[IdStatusLead],
+		COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
+	FROM [input].[T_CNQ_FicherosDirectorios] D
+	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(D.Continent,'NULL') = ISNULL(G.Continent,'NULL')
+											AND ISNULL(D.Country,'NULL') = ISNULL(G.Country,'NULL')
+											AND ISNULL(D.City,'NULL') = ISNULL(G.City,'NULL')
+	LEFT OUTER JOIN [process].[T_CNQ_TitleSynonym] TS ON D.Title = TS.TitleSynonym
+	INNER JOIN [process].[T_CNQ_StatusLead] COOPSL ON D.COOPStatusLead LIKE '%'+COOPSL.StatusLead+'%' AND COOPSL.IdNetwork = 2
+	INNER JOIN [process].[T_CNQ_StatusLead] CQRSL ON D.CQRStatusLead LIKE '%'+CQRSL.StatusLead+'%' AND CQRSL.IdNetwork = 1
+	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] COOPSC ON D.COOPStatusCity = COOPSC.StatusCity AND COOPSC.IdNetwork = 2
+	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] CQRSC ON D.CQRStatusCity = CQRSC.StatusCity AND CQRSC.IdNetwork = 1
+	WHERE D.IdLinea * 1000 + D.IdFichero NOT IN (SELECT [SingleColumnUniqueKey] FROM [process].[T_CNQ_FicherosProcesados])
+
+	INSERT INTO [process].[T_CNQ_FicherosProcesados]
+	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName,
+		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website, COOPIdStatusCity, CQRIdStatusCity)
+	SELECT IdLinea, IdFichero, Source, G.IdGeography, Email, TS.IdTitle, FirstName, Surname, CompanyName,
+		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
+		COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
+	FROM [input].[T_CNQ_FicherosDirectorios] D
+	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(D.Continent,'NULL') = ISNULL(G.Continent,'NULL')
+											AND ISNULL(D.Country,'NULL') = ISNULL(G.Country,'NULL')
+											AND ISNULL(D.City,'NULL') = ISNULL(G.City,'NULL')
+	LEFT OUTER JOIN [process].[T_CNQ_TitleSynonym] TS ON D.Title = TS.TitleSynonym
+	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] COOPSC ON D.COOPStatusCity = COOPSC.StatusCity AND COOPSC.IdNetwork = 2
+	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] CQRSC ON D.CQRStatusCity = CQRSC.StatusCity AND CQRSC.IdNetwork = 1
+	WHERE D.IdLinea * 1000 + D.IdFichero NOT IN (SELECT [SingleColumnUniqueKey] FROM [process].[T_CNQ_FicherosProcesados])
+
+	UPDATE FP
+	SET [COOPIdStatusLeadDetail] = SLD.[IdStatusLeadDetail]
+	FROM [process].[T_CNQ_FicherosProcesados] FP
+	INNER JOIN [input].[T_CNQ_FicherosDirectorios] D ON FP.IdLinea = D.IdLinea
+	INNER JOIN [process].[T_CNQ_StatusLeadDetails] SLD ON FP.[COOPIdStatusLead] = SLD.[IdStatusLead]
+	WHERE D.COOPStatusLead LIKE '%'+SLD.StatusLeadDetail+'%'
+
+	UPDATE FP
+	SET [CQRIdStatusLeadDetail] = SLD.[IdStatusLeadDetail]
+	FROM [process].[T_CNQ_FicherosProcesados] FP
+	INNER JOIN [input].[T_CNQ_FicherosDirectorios] D ON FP.IdLinea = D.IdLinea
+	INNER JOIN [process].[T_CNQ_StatusLeadDetails] SLD ON FP.[CQRIdStatusLead] = SLD.[IdStatusLead]
+	WHERE D.CQRStatusLead LIKE '%'+SLD.StatusLeadDetail+'%'
+
 	-- Común
 	UPDATE [process].[T_CNQ_FicherosProcesados]
 	SET FirstName = NULL

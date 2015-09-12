@@ -173,6 +173,9 @@
     </Build>
     <Build Include="Views\output.V_CNQ_InformeCargas.sql" />
     <Build Include="Views\output.V_CNQ_InformeTrazaContactos.sql" />
+    <Build Include="Tables\input.T_CNQ_FicherosDirectorios.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />
