@@ -1,12 +1,17 @@
 ﻿CREATE VIEW [output].[V_CNQ_InformeCargas]
 AS
-SELECT R.IdFichero, IdFicheroTipo, DsFichero, FcInicioCarga, FcFinCarga
-	,CASE WHEN COUNT(DISTINCT F.IDLINEA) > 0 THEN COUNT(DISTINCT F.IDLINEA) ELSE COUNT(DISTINCT A.IDLINEA) END AS NumeroFilasCargadas
+SELECT R.IdFichero, R.IdFicheroTipo, T.FicheroTipo, DsFichero, FcInicioCarga, FcFinCarga
+	,CASE R.IdFicheroTipo
+		WHEN 1 THEN COUNT(DISTINCT F.IDLINEA)
+		WHEN 2 THEN COUNT(DISTINCT A.IDLINEA)
+		WHEN 3 THEN COUNT(DISTINCT D.IDLINEA) END AS NumeroFilasCargadas
 FROM [input].[T_CNQ_FicherosRegistro] R
+INNER JOIN [input].[T_CNQ_FicherosTipos] T ON R.IdFicheroTipo = T.IdFicheroTipo
 LEFT OUTER JOIN [input].[T_CNQ_Ficheros] F ON R.IdFichero = F.IdFichero
 LEFT OUTER JOIN [input].[T_CNQ_FicherosAsociaciones] A ON R.IdFichero = A.IdFichero
+LEFT OUTER JOIN [input].[T_CNQ_FicherosDirectorios] D ON R.IdFichero = D.IdFichero
 WHERE R.FcFinCarga IS NOT NULL
-GROUP BY R.IdFichero, IdFicheroTipo, DsFichero, FcInicioCarga, FcFinCarga
+GROUP BY R.IdFichero, R.IdFicheroTipo, T.FicheroTipo, DsFichero, FcInicioCarga, FcFinCarga
 
 GO
 
