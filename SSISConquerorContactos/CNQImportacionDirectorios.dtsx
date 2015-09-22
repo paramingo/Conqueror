@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="CNQImportacionDirectorios"
   DTS:PackageType="5"
-  DTS:VersionBuild="112"
-  DTS:VersionGUID="{90D405EF-6151-48BB-A00C-79E1BB367D41}">
+  DTS:VersionBuild="131"
+  DTS:VersionGUID="{F87DF35C-839A-4F17-BD02-7C1AB72C7729}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -79,7 +79,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="Sheet">
       <DTS:VariableValue
-        DTS:DataType="8">'Networks-cargoro-com-for-export$'</DTS:VariableValue>
+        DTS:DataType="8">Wwprojectnetforexport$</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
@@ -1131,10 +1131,11 @@
                       name="Entrada de división condicional">
                       <inputColumns>
                         <inputColumn
-                          refId="Package\Bucle Directorios\Carga Directorios xlsx\División condicional.Inputs[Entrada de división condicional].Columns[Address]"
-                          cachedDataType="nText"
-                          cachedName="Address"
-                          lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Address]" />
+                          refId="Package\Bucle Directorios\Carga Directorios xlsx\División condicional.Inputs[Entrada de división condicional].Columns[Address_3000]"
+                          cachedDataType="wstr"
+                          cachedLength="3000"
+                          cachedName="Address_3000"
+                          lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Columna derivada 1.Outputs[Salida de columna derivada].Columns[Address_3000]" />
                       </inputColumns>
                       <externalMetadataColumns />
                     </input>
@@ -1154,13 +1155,13 @@
                           containsID="true"
                           dataType="System.String"
                           description="Especifica la expresión. Esta versión de expresión usa identificadores de linaje en lugar de nombres de columna."
-                          name="Expression">![ISNULL](#{Package\Bucle Directorios\Carga Directorios xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Address]}) &amp;&amp; (DT_WSTR,3000)#{Package\Bucle Directorios\Carga Directorios xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Address]} == (DT_WSTR,3000)[REPLICATE]("Address",70)</property>
+                          name="Expression">![ISNULL](#{Package\Bucle Directorios\Carga Directorios xlsx\Columna derivada 1.Outputs[Salida de columna derivada].Columns[Address_3000]}) &amp;&amp; #{Package\Bucle Directorios\Carga Directorios xlsx\Columna derivada 1.Outputs[Salida de columna derivada].Columns[Address_3000]} == (DT_WSTR,3000)[REPLICATE]("Address",70)</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Especifica la versión descriptiva de la expresión. Esta versión de expresión usa nombres de columna."
                           expressionType="Notify"
-                          name="FriendlyExpression">!ISNULL(Address) &amp;&amp; (DT_WSTR,3000)Address == (DT_WSTR,3000)REPLICATE("Address",70)</property>
+                          name="FriendlyExpression">!ISNULL(Address_3000) &amp;&amp; Address_3000 == (DT_WSTR,3000)REPLICATE("Address",70)</property>
                         <property
                           dataType="System.Int32"
                           description="Especifica la posición de la condición en la lista de condiciones que evalúa la transformación. El orden de evaluación es del menor al mayor valor."
@@ -1775,7 +1776,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{11E541B9-8682-42BF-9E46-A6827FBA7CEF}"
-              SQLTask:SqlStatementSource="DECLARE @IdFichero INT&#xA;&#xA;EXEC @IdFichero = [input].[PR_CNQ_FicheroCargaInicio] 1,@DsFichero&#xA;&#xA;SELECT @IdFichero as IdFichero"
+              SQLTask:SqlStatementSource="DECLARE @IdFichero INT&#xA;&#xA;EXEC @IdFichero = [input].[PR_CNQ_FicheroCargaInicio] 3,@DsFichero&#xA;&#xA;SELECT @IdFichero as IdFichero"
               SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
                 SQLTask:ResultName="0"
@@ -2346,7 +2347,7 @@ namespace ST_b24805b14ec14aa6b85f760bc6df5664.Properties {
               <BinaryItem
                 Name="ST_b24805b14ec14aa6b85f760bc6df5664.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDAA5G8VUAAAAAAAAAAOAAAiELAQsAABQAAAAIAAAAAAAAnjIA
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAAcIAFYAAAAAAAAAAOAAAiELAQsAABQAAAAIAAAAAAAAnjIA
 AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAACAAAAAAgAAAAAAAAMAQIUAABAA
 ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAEgyAABTAAAAAEAAAAgEAAAAAAAAAAAAAAAAAAAA
 AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -2387,7 +2388,7 @@ Bc4AIQH1BVgA8QD+BdQA6QAFBtoAIQEaBt8AKQE+BeUAMQFHBZ0ACQAzBsQA8QA8Bs4AIQFIBu0A
 OQG8ARsAOQFsBvMAMQEFBtoAAQFzBhsAAQF4BhsA2QCABl0AQQGZBsQASQHSBvwAGQC8ARsACAAU
 AE4ACAAYAFMAKQCTAIAALgAbAIMBLgAjAIMBLgBjAKkBLgALABIBLgATAFoBLgAzAFoBLgArAIMB
 LgA7AIkBLgBDAIMBLgBbAKABQwBrAFMASQCTAIAAYQCbAFMAgwCrAFMAdQADAQIAAQADAAMAAABv
-AS8AAADuATQAAAASAkIAAgACAAMAAgADAAUAAQAEAAUAAgAFAAcABIAAAAEAAABjFg9GAAAAAAAA
+AS8AAADuATQAAAASAkIAAgACAAMAAgADAAUAAQAEAAUAAgAFAAcABIAAAAEAAABuFstmAAAAAAAA
 fwAAAAQAAAAAAAAAAAAAAAEAsQAAAAAABAAAAAAAAAAAAAAAAQC6AAAAAAAMAAAAAAAAAAAAAAAK
 APUAAAAAAAwAAAAAAAAAAAAAAAoA3gQAAAAAAwAAAAAAAgAAAAAAoQBrBQAAAAACAAAAAAAAAAAA
 AAABALEAAAAAAAQAAAAAAAAAAAAAAAEApQYAAAAAAAAAAAEAAADXBgAABQAEAAAAAAAAPE1vZHVs
@@ -2426,8 +2427,8 @@ NzYwYmM2ZGY1NjY0LlByb3BlcnRpZXMuUmVzb3VyY2VzLnJlc291cmNlcwAAAABxUwBUAF8AYgAy
 ADQAOAAwADUAYgAxADQAZQBjADEANABhAGEANgBiADgANQBmADcANgAwAGIAYwA2AGQAZgA1ADYA
 NgA0AC4AUAByAG8AcABlAHIAdABpAGUAcwAuAFIAZQBzAG8AdQByAGMAZQBzAAA5VQBzAGUAcgA6
 ADoARgBpAGMAaABlAHIAbwBEAGkAcgBlAGMAdABvAHIAaQBvAHMAUgB1AHQAYQAAAyAAAAEAA18A
-ABdVAHMAZQByADoAOgBTAGgAZQBlAHQAAAMkAAAPQQBkAGQAcgBlAHMAcwAAAJRo+K7vHLFEr7UA
-WMltZFMACLd6XFYZNOCJCImEXc2AgMyRAwYSFQMGEhkDIAABBAAAEhUEAAASGQUAAQESGQQIABIV
+ABdVAHMAZQByADoAOgBTAGgAZQBlAHQAAAMkAAAPQQBkAGQAcgBlAHMAcwAAAFZXdYtwG7ZCiMC6
+TSPRxcAACLd6XFYZNOCJCImEXc2AgMyRAwYSFQMGEhkDIAABBAAAEhUEAAASGQUAAQESGQQIABIV
 BAgAEhkDBhIMBAAAEgwECAASDAIGCAMGERQEAAAAAAQBAAAABCABAQ4EIAEBCAYAARJREVUEIAAS
 WQYgAgEOElkEBwESFQUgAQERYQgBAAIAAAAAAAMAAAEEIAASbQQgABJxBSABEnUcAyAAHAjqFZ/a
 p4FZoQYgAQESgIUFIAASgIkFIAASgI0GIAESgJEIAyAADgUgAg4ODgUAAgIODgUAAg4ODgQgAQEc
@@ -2445,13 +2446,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAQAQAAAAGAAAgAAAAAAAAAAAAAAAAAAAAQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAA
 SAAAAFhAAACwAwAAAAAAAAAAAACwAzQAAABWAFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAA
-AAAAvQTv/gAAAQAAAAEAD0ZjFgAAAQAPRmMWPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQA
+AAAAvQTv/gAAAQAAAAEAy2ZuFgAAAQDLZm4WPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQA
 AAABAFYAYQByAEYAaQBsAGUASQBuAGYAbwAAAAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBu
 AAAAAAAAALAEEAMAAAEAUwB0AHIAaQBuAGcARgBpAGwAZQBJAG4AZgBvAAAA7AIAAAEAMAAwADAA
 MAAwADQAYgAwAAAAcAAkAAEARgBpAGwAZQBEAGUAcwBjAHIAaQBwAHQAaQBvAG4AAAAAAFMAVABf
 AGIAMgA0ADgAMAA1AGIAMQA0AGUAYwAxADQAYQBhADYAYgA4ADUAZgA3ADYAMABiAGMANgBkAGYA
-NQA2ADYANAAAAEAADwABAEYAaQBsAGUAVgBlAHIAcwBpAG8AbgAAAAAAMQAuADAALgA1ADcAMwAx
-AC4AMQA3ADkAMwA1AAAAAABwACgAAQBJAG4AdABlAHIAbgBhAGwATgBhAG0AZQAAAFMAVABfAGIA
+NQA2ADYANAAAAEAADwABAEYAaQBsAGUAVgBlAHIAcwBpAG8AbgAAAAAAMQAuADAALgA1ADcANAAy
+AC4AMgA2ADMAMQA1AAAAAABwACgAAQBJAG4AdABlAHIAbgBhAGwATgBhAG0AZQAAAFMAVABfAGIA
 MgA0ADgAMAA1AGIAMQA0AGUAYwAxADQAYQBhADYAYgA4ADUAZgA3ADYAMABiAGMANgBkAGYANQA2
 ADYANAAuAGQAbABsAAAASAASAAEATABlAGcAYQBsAEMAbwBwAHkAcgBpAGcAaAB0AAAAQwBvAHAA
 eQByAGkAZwBoAHQAIABAACAAIAAyADAAMQA1AAAAeAAoAAEATwByAGkAZwBpAG4AYQBsAEYAaQBs
@@ -2459,8 +2460,8 @@ AGUAbgBhAG0AZQAAAFMAVABfAGIAMgA0ADgAMAA1AGIAMQA0AGUAYwAxADQAYQBhADYAYgA4ADUA
 ZgA3ADYAMABiAGMANgBkAGYANQA2ADYANAAuAGQAbABsAAAAaAAkAAEAUAByAG8AZAB1AGMAdABO
 AGEAbQBlAAAAAABTAFQAXwBiADIANAA4ADAANQBiADEANABlAGMAMQA0AGEAYQA2AGIAOAA1AGYA
 NwA2ADAAYgBjADYAZABmADUANgA2ADQAAABEAA8AAQBQAHIAbwBkAHUAYwB0AFYAZQByAHMAaQBv
-AG4AAAAxAC4AMAAuADUANwAzADEALgAxADcAOQAzADUAAAAAAEgADwABAEEAcwBzAGUAbQBiAGwA
-eQAgAFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADUANwAzADEALgAxADcAOQAzADUAAAAAAAAAAAAA
+AG4AAAAxAC4AMAAuADUANwA0ADIALgAyADYAMwAxADUAAAAAAEgADwABAEEAcwBzAGUAbQBiAGwA
+eQAgAFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADUANwA0ADIALgAyADYAMwAxADUAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -2719,25 +2720,29 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="153,42"
-          Id="Package\Bucle Directorios\Carga Directorios xlsx\Origen de Excel"
-          TopLeft="17,4.5" />
-        <NodeLayout
-          Size="175,42"
-          Id="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos"
-          TopLeft="6.00000000000003,169" />
+          Size="173,42"
+          Id="Package\Bucle Directorios\Carga Directorios xlsx\Columna derivada 1"
+          TopLeft="377,51" />
         <NodeLayout
           Size="171,42"
           Id="Package\Bucle Directorios\Carga Directorios xlsx\División condicional"
           TopLeft="8.00000000000001,87.25" />
         <NodeLayout
-          Size="164,42"
-          Id="Package\Bucle Directorios\Carga Directorios xlsx\Columna derivada"
-          TopLeft="11.5,250.75" />
+          Size="153,42"
+          Id="Package\Bucle Directorios\Carga Directorios xlsx\Origen de Excel"
+          TopLeft="17,4.5" />
         <NodeLayout
           Size="176,42"
           Id="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET"
           TopLeft="6.50000000000004,332.5" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos"
+          TopLeft="6.00000000000003,169" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\Bucle Directorios\Carga Directorios xlsx\Columna derivada"
+          TopLeft="11.5,250.75" />
         <EdgeLayout
           Id="Package\Bucle Directorios\Carga Directorios xlsx.Paths[Salida predeterminada de división condicional]"
           TopLeft="93.5,129.25">
@@ -2762,54 +2767,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Bucle Directorios\Carga Directorios xlsx.Paths[Salida de conversión de datos]"
-          TopLeft="93.5,211">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,39.75"
-              Start="0,0"
-              End="0,32.25">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,32.25" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Bucle Directorios\Carga Directorios xlsx.Paths[Salida de columna derivada]"
-          TopLeft="94,292.75">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,39.75"
-              Start="0,0"
-              End="0,32.25">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,32.25" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="173,42"
-          Id="Package\Bucle Directorios\Carga Directorios xlsx\Columna derivada 1"
-          TopLeft="377,51" />
         <EdgeLayout
           Id="Package\Bucle Directorios\Carga Directorios xlsx.Paths[Salida de origen de Excel]"
           TopLeft="170,25.5">
@@ -2845,6 +2802,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package\Bucle Directorios\Carga Directorios xlsx.Paths[Salida de conversión de datos]"
+          TopLeft="93.5,211">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.75"
+              Start="0,0"
+              End="0,32.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package\Bucle Directorios\Carga Directorios xlsx.Paths[Salida de columna derivada1]"
           TopLeft="377,77.6666666666667">
           <EdgeLayout.Curve>
@@ -2870,6 +2849,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                     Point3="-87.559633027523,30.5833333333333" />
                   <mssgle:LineSegment
                     End="-190.5,30.5833333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Bucle Directorios\Carga Directorios xlsx.Paths[Salida de columna derivada]"
+          TopLeft="94,292.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.75"
+              Start="0,0"
+              End="0,32.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.25" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
