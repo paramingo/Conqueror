@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="CNQImportacionDirectorios"
   DTS:PackageType="5"
-  DTS:VersionBuild="131"
-  DTS:VersionGUID="{F87DF35C-839A-4F17-BD02-7C1AB72C7729}">
+  DTS:VersionBuild="134"
+  DTS:VersionGUID="{47D9C81C-2B95-4D50-9AF4-E14AD505C341}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -79,7 +79,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="Sheet">
       <DTS:VariableValue
-        DTS:DataType="8">Wwprojectnetforexport$</DTS:VariableValue>
+        DTS:DataType="8">Hoja1$</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
@@ -509,7 +509,7 @@
                           dataType="wstr"
                           errorOrTruncationOperation="Conversión"
                           errorRowDisposition="FailComponent"
-                          length="100"
+                          length="200"
                           lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Email]"
                           name="Copia de Email"
                           truncationRowDisposition="FailComponent">
@@ -876,17 +876,10 @@
                         <inputColumn
                           refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Email]"
                           cachedDataType="wstr"
-                          cachedLength="100"
+                          cachedLength="200"
                           cachedName="Copia de Email"
                           externalMetadataColumnId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Email]"
                           lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Email]" />
-                        <inputColumn
-                          refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Title]"
-                          cachedDataType="wstr"
-                          cachedLength="5"
-                          cachedName="Copia de Title"
-                          externalMetadataColumnId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Title]"
-                          lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Title]" />
                         <inputColumn
                           refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[First Name]"
                           cachedDataType="wstr"
@@ -937,20 +930,6 @@
                           externalMetadataColumnId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[MobileNo]"
                           lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Mobile No#]" />
                         <inputColumn
-                          refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Fax]"
-                          cachedDataType="wstr"
-                          cachedLength="200"
-                          cachedName="Copia de Fax"
-                          externalMetadataColumnId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Fax]"
-                          lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Fax]" />
-                        <inputColumn
-                          refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Website]"
-                          cachedDataType="wstr"
-                          cachedLength="200"
-                          cachedName="Copia de Website"
-                          externalMetadataColumnId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Website]"
-                          lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Website]" />
-                        <inputColumn
                           refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de COOP - Status Lead]"
                           cachedDataType="wstr"
                           cachedLength="60"
@@ -978,6 +957,27 @@
                           cachedName="Copia de CQR - Status City"
                           externalMetadataColumnId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[CQRStatusCity]"
                           lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de CQR - Status City]" />
+                        <inputColumn
+                          refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Fax]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="Copia de Fax"
+                          externalMetadataColumnId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Fax]"
+                          lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Fax]" />
+                        <inputColumn
+                          refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Website]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="Copia de Website"
+                          externalMetadataColumnId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Website]"
+                          lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Website]" />
+                        <inputColumn
+                          refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Copia de Title]"
+                          cachedDataType="wstr"
+                          cachedLength="5"
+                          cachedName="Copia de Title"
+                          externalMetadataColumnId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Title]"
+                          lineageId="Package\Bucle Directorios\Carga Directorios xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Title]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -1012,7 +1012,7 @@
                         <externalMetadataColumn
                           refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Email]"
                           dataType="wstr"
-                          length="100"
+                          length="200"
                           name="Email" />
                         <externalMetadataColumn
                           refId="Package\Bucle Directorios\Carga Directorios xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Title]"
@@ -1809,14 +1809,35 @@
               ReadOnlyVariables="User::FicheroDirectoriosRuta"
               ReadWriteVariables="User::Sheet">
               <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
+                Name="Properties\AssemblyInfo.cs"
+                Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_b24805b14ec14aa6b85f760bc6df5664")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_b24805b14ec14aa6b85f760bc6df5664")]
+[assembly: AssemblyCopyright("Copyright @  2015")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -2247,35 +2268,14 @@ namespace ST_b24805b14ec14aa6b85f760bc6df5664.Properties {
     }
 }]]></ProjectItem>
               <ProjectItem
-                Name="Properties\AssemblyInfo.cs"
-                Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_b24805b14ec14aa6b85f760bc6df5664")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_b24805b14ec14aa6b85f760bc6df5664")]
-[assembly: AssemblyCopyright("Copyright @  2015")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------

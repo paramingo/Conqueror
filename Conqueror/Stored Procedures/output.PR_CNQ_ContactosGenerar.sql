@@ -16,7 +16,7 @@ BEGIN
 		@IdFichero int,
 		@Source nvarchar(80),
 		@IdGeography int,
-		@Email nvarchar(100),
+		@Email nvarchar(200),
 		@IdTitle int,
 		@FirstName nvarchar(255),
 		@Surname nvarchar(255),
@@ -35,10 +35,11 @@ BEGIN
 		@CQRIdStatusCity int
 
 	DECLARE @IdContactoComparacion int,
-		@EmailComparacion nvarchar(100),
+		@EmailComparacion nvarchar(200),
 		@FirstNameSurnameComparacion nvarchar(255),
 		@CompanyNameComparacion nvarchar(255),
-		@ContactosSimilares int
+		@ContactosSimilares int,
+		@Similarity float
 
 	DECLARE LineasFichero CURSOR FAST_FORWARD FOR
 	SELECT TOP (@RowLimit) IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname,
@@ -59,16 +60,17 @@ BEGIN
 	BEGIN
 	PRINT @IdLinea
 		SET @IdContactoComparacion = NULL
+		SET @Similarity = NULL
 
-		EXEC @IdContactoComparacion = [output].[PR_CNQ_ContactosBestMatch] @Email, @FirstName, @Surname,@CompanyName, @IdGeography
+		EXEC @IdContactoComparacion = [output].[PR_CNQ_ContactosBestMatch] @Email, @FirstName, @Surname,@CompanyName, @IdGeography, @Similarity OUTPUT
 
 		IF @IdContactoComparacion > 0
 		BEGIN
 			EXEC [output].[PR_CNQ_ContactosFusion] @IdLinea, @IdFichero, @IdContactoComparacion
 
 			INSERT INTO output.T_CNQ_LogProcesoFilas
-			(IdLinea, IdFichero, IdResultadoFila, IdContactoComparacion)
-			VALUES (@IdLinea, @IdFichero, 2, @IdContactoComparacion)
+			(IdLinea, IdFichero, IdResultadoFila, IdContactoComparacion, Similarity)
+			VALUES (@IdLinea, @IdFichero, 2, @IdContactoComparacion, @Similarity)
 		END
 		ELSE -- Nuevo
 		BEGIN

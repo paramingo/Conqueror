@@ -5,7 +5,7 @@
     [IdFichero] INT NOT NULL,
 	[Source] NVARCHAR(80) NULL,
 	[IdGeography] INT NULL,
-	[Email] NVARCHAR(100) NULL,
+	[Email] NVARCHAR(200) NULL,
 	[IdTitle] INT NULL,
 	[FirstName] NVARCHAR(255) NULL,
 	[Surname] NVARCHAR(255) NULL,

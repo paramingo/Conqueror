@@ -5,7 +5,7 @@
     [Continent]             NVARCHAR (20)  NULL,
     [Country]               NVARCHAR (50)  NULL,
     [City]                  NVARCHAR (100) NULL,
-    [Email]                 NVARCHAR (100) NULL,
+    [Email]                 NVARCHAR (200) NULL,
     [Title]                 NVARCHAR (5)   NULL,
     [FirstName]             NVARCHAR (255) NULL,
     [Surname]               NVARCHAR (255) NULL,
