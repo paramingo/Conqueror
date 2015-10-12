@@ -176,6 +176,7 @@
     <Build Include="Tables\input.T_CNQ_FicherosDirectorios.sql">
       <AnsiNulls>Off</AnsiNulls>
     </Build>
+    <Build Include="Stored Procedures\process.PR_CNQ_FicheroEliminar.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />
