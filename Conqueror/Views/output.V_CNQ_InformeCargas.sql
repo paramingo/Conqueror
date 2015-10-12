@@ -11,6 +11,7 @@ LEFT OUTER JOIN [input].[T_CNQ_Ficheros] F ON R.IdFichero = F.IdFichero
 LEFT OUTER JOIN [input].[T_CNQ_FicherosAsociaciones] A ON R.IdFichero = A.IdFichero
 LEFT OUTER JOIN [input].[T_CNQ_FicherosDirectorios] D ON R.IdFichero = D.IdFichero
 WHERE R.FcFinCarga IS NOT NULL
+	AND ISNULL(R.Deleted,0) = 0
 GROUP BY R.IdFichero, R.IdFicheroTipo, T.FicheroTipo, DsFichero, FcInicioCarga, FcFinCarga
 
 GO

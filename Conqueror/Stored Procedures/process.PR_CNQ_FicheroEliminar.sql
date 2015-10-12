@@ -2,6 +2,9 @@
 	@IdFichero int
 AS
 BEGIN
+	SET XACT_ABORT ON
+
+	BEGIN TRAN
 
 	-- output
 	DELETE FROM output.T_CNQ_ResultadosFilas
@@ -38,4 +41,9 @@ BEGIN
 		DELETE FROM input.T_CNQ_FicherosDirectorios
 		WHERE IdFichero = @IdFichero
 
+	UPDATE input.T_CNQ_FicherosRegistro
+	SET Deleted = 1
+	WHERE IdFichero = @IdFichero
+
+	COMMIT TRAN
 END
