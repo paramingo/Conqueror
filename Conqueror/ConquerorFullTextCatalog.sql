@@ -1,1 +1,0 @@
-﻿CREATE FULLTEXT CATALOG [ConquerorFullTextCatalog] AS DEFAULT

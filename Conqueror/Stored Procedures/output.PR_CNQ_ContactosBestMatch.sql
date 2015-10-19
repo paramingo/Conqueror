@@ -42,10 +42,10 @@ BEGIN
 	ELSE
 	BEGIN
 		SELECT TOP 1 @IdContacto = IdContacto
-			,@Similarity = [process].[FN_CNQ_LevenshteinMod](ISNULL(FirstName,'')+ISNULL(Surname,''),ISNULL(@FirstName,'')+ISNULL(@Surname,''))
+			,@Similarity = [process].[FN_CNQ_LevenshteinMod](ISNULL(FirstName,'')+ISNULL(Surname,''),ISNULL(@FirstName,'Agente')+ISNULL(@Surname,''))
 		FROM @ContactosMatch
-		WHERE [process].[FN_CNQ_LevenshteinMod](ISNULL(FirstName,'')+ISNULL(Surname,''),ISNULL(@FirstName,'')+ISNULL(@Surname,'')) < 0.45
-		ORDER BY [process].[FN_CNQ_LevenshteinMod](ISNULL(FirstName,'')+ISNULL(Surname,''),ISNULL(@FirstName,'')+ISNULL(@Surname,''))
+		WHERE [process].[FN_CNQ_LevenshteinMod](ISNULL(FirstName,'')+ISNULL(Surname,''),ISNULL(@FirstName,'Agente')+ISNULL(@Surname,'')) < 0.45
+		ORDER BY [process].[FN_CNQ_LevenshteinMod](ISNULL(FirstName,'')+ISNULL(Surname,''),ISNULL(@FirstName,'Agente')+ISNULL(@Surname,''))
 	END
 
 	RETURN ISNULL(@IdContacto,-1)

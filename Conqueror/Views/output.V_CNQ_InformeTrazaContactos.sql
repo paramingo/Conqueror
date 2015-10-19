@@ -13,6 +13,13 @@ FROM (
 	INNER JOIN [input].[T_CNQ_FicherosAsociaciones] A ON LPF.IdLinea = A.IdLinea AND LPF.IdFichero = A.IdFichero
 	UNION ALL
 	SELECT IdContactoComparacion AS IdContacto
+		,LPF.IdFichero, LPF.IdLinea, Source, Continent, Country, City, Email, Title, FirstName, Surname, JobTitle
+		,CompanyName, Address, PostalCode, TelephoneNo, MobileNo, Fax, Website
+		,COOPStatusLead, CQRStatusLead, COOPStatusCity, CQRStatusCity
+	FROM [output].[T_CNQ_LogProcesoFilas] LPF
+	INNER JOIN [input].[T_CNQ_FicherosDirectorios] D ON LPF.IdLinea = D.IdLinea AND LPF.IdFichero = D.IdFichero
+	UNION ALL
+	SELECT IdContactoComparacion AS IdContacto
 		,LPF.IdFichero, LPF.IdLinea, Source, Continent, Country, City, Email, NULL, TitleFirstNameSurname, NULL, NULL
 		,CompanyName, Address, PostalCode, TelephoneNo, NULL, NULL, NULL
 		,COOPStatusLead, CQRStatusLead, COOPStatusCity, CQRStatusCity

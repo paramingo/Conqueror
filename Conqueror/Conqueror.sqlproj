@@ -142,7 +142,6 @@
     <Build Include="Tables\process.T_CNQ_Titles.sql" />
     <Build Include="Tables\process.T_CNQ_TitleSynonym.sql" />
     <Build Include="Stored Procedures\process.PR_CNQ_FicherosProcesoInicial.sql" />
-    <Build Include="ConquerorFullTextCatalog.sql" />
     <Build Include="Tables\output.T_CNQ_Contactos.sql" />
     <Build Include="Stored Procedures\output.PR_CNQ_ContactosGenerar.sql">
       <AnsiNulls>Off</AnsiNulls>
@@ -158,7 +157,6 @@
       <AnsiNulls>Off</AnsiNulls>
       <QuotedIdentifier>Off</QuotedIdentifier>
     </Build>
-    <Build Include="dbo.FicherosProcesadosFullTextIndex.sql" />
     <Build Include="Functions\process.FN_CNQ_Levenshtein.sql" />
     <Build Include="Tables\process.T_CNQ_Geography.sql" />
     <Build Include="Views\output.V_CNQ_ContactosConsolidar.sql" />
