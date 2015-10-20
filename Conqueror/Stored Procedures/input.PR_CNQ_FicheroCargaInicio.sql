@@ -5,6 +5,13 @@ AS
 BEGIN
 	DECLARE @IdFichero INT
 
+	IF EXISTS (SELECT DsFichero
+				FROM input.T_CNQ_FicherosRegistro
+				WHERE DsFichero = @DsFichero
+					AND FcFinCarga IS NOT NULL
+					AND Deleted = 0)
+		RAISERROR('El fichero %s está registrado como cargado.',15,1,@DsFichero)
+
 	INSERT INTO input.T_CNQ_FicherosRegistro
 	(IdFicheroTipo, DsFichero)
 	VALUES

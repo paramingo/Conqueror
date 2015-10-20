@@ -1,7 +1,27 @@
 ﻿CREATE PROCEDURE [process].[PR_CNQ_FicherosProcesoInicial]
 AS
 BEGIN
+	SET XACT_ABORT ON
+
+	BEGIN TRAN
+
 	TRUNCATE TABLE [process].[T_CNQ_FicherosProcesados]
+
+	UPDATE [input].[T_CNQ_Ficheros]
+	SET Continent = CASE Continent WHEN 'Asia FE' THEN 'Asia (FE)'
+								WHEN 'Asia ME' THEN 'Asia (ME)'
+								WHEN 'Eurpe' THEN 'Europe' END
+	WHERE Continent IN ('Asia FE','Asia ME','Eurpe')
+	UPDATE [input].[T_CNQ_FicherosAsociaciones]
+	SET Continent = CASE Continent WHEN 'Asia FE' THEN 'Asia (FE)'
+								WHEN 'Asia ME' THEN 'Asia (ME)'
+								WHEN 'Eurpe' THEN 'Europe' END
+	WHERE Continent IN ('Asia FE','Asia ME','Eurpe')
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Continent = CASE Continent WHEN 'Asia FE' THEN 'Asia (FE)'
+								WHEN 'Asia ME' THEN 'Asia (ME)'
+								WHEN 'Eurpe' THEN 'Europe' END
+	WHERE Continent IN ('Asia FE','Asia ME','Eurpe')
 
 	MERGE [process].[T_CNQ_Geography] AS TARGET
 	USING (SELECT DISTINCT [Continent]
@@ -25,8 +45,8 @@ BEGIN
 	WHEN NOT MATCHED BY TARGET THEN
 		INSERT ([Continent], [Country], [City])
 		VALUES ([Continent], [Country], [City])
-	WHEN NOT MATCHED BY SOURCE THEN
-		DELETE
+	--WHEN NOT MATCHED BY SOURCE THEN
+	--	DELETE
 	;
 
 	-- BBDD General
@@ -232,6 +252,8 @@ BEGIN
 
 	-- Reconstrucción de índices
 	ALTER INDEX ALL ON process.T_CNQ_FicherosProcesados REBUILD
+
+	COMMIT TRAN
 
 	RETURN 0
 END
