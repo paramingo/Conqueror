@@ -175,6 +175,9 @@
       <AnsiNulls>Off</AnsiNulls>
     </Build>
     <Build Include="Stored Procedures\process.PR_CNQ_FicheroEliminar.sql" />
+    <Build Include="Tables\input.T_CNQ_FicherosCRM.sql" />
+    <Build Include="Tables\process.T_CNQ_FicherosCRMProcesados.sql" />
+    <Build Include="Stored Procedures\process.PR_CNQ_FicherosCRMProcesoInicial.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />

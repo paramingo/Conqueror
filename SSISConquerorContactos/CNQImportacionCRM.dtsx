@@ -1,0 +1,1079 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/14/2015 12:32:34 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PRT0150"
+  DTS:CreatorName="TSOFICINA\iñigo.mingo"
+  DTS:DTSID="{1A7CD5AA-85F1-46C0-A93D-413E632641D1}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="CNQImportacionCRM"
+  DTS:PackageType="5"
+  DTS:VersionBuild="160"
+  DTS:VersionGUID="{9C2C91C0-EC27-4DE3-89D6-205AFF359542}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CRM xlsx]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{2614DBA3-B38A-409B-9733-95F75DEB5643}"
+      DTS:ObjectName="CRM xlsx">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">@[User::FicheroCRMRuta]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\Dropbox\Dropbox\Conqueror\FicherosCarga\CRM\Waiting List-coop.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Procesados]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{DE25838F-1183-4DAE-A7E6-1A468627D8DB}"
+      DTS:ObjectName="Procesados">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::PathProcesados]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="2"
+          DTS:ConnectionString="D:\Dropbox\Dropbox\Conqueror\FicherosCarga\Procesados\" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{387DE379-2216-40D1-8D52-A5E26FC45A01}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FicheroCRM">
+      <DTS:VariableValue
+        DTS:DataType="8">Waiting List-coop.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A124B96D-F3AE-4DAC-A794-9EBBA6FB55AF}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::PathCRM]+ @[User::FicheroCRM]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FicheroCRMRuta">
+      <DTS:VariableValue
+        DTS:DataType="8">D:\Dropbox\Dropbox\Conqueror\FicherosCarga\CRM\Waiting List-coop.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5AA71757-C89D-442C-8034-3B1CF207DB2E}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IdFichero">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Archivar"
+      DTS:CreationName="Microsoft.FileSystemTask"
+      DTS:Description="Tarea Sistema de archivos"
+      DTS:DTSID="{5B04E090-775B-4992-940B-4C9218D8CDB8}"
+      DTS:ExecutableType="Microsoft.FileSystemTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Archivar"
+      DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="MoveFile"
+          TaskOverwriteDestFile="True"
+          TaskSourcePath="User::FicheroCRMRuta"
+          TaskIsSourceVariable="True"
+          TaskDestinationPath="Procesados" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Carga CRM xlsx"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DelayValidation="True"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{512EA89C-BD95-4AB1-830A-B42EE95ED32E}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Carga CRM xlsx"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Carga CRM xlsx\Columna derivada"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Columna derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Crea nuevos valores de columna aplicando expresiones a las columnas de entrada de la transformación. Crea nuevas columnas o sobrescribe las columnas existentes. Por ejemplo, se concatenan los valores de las columnas 'nombre' y 'apellidos' para crear una columna 'nombre completo'."
+              name="Columna derivada"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga CRM xlsx\Columna derivada.Inputs[Entrada de columna derivada]"
+                  description="Entrada en la transformación Columna derivada"
+                  name="Entrada de columna derivada">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga CRM xlsx\Columna derivada.Outputs[Salida de columna derivada]"
+                  description="Salida predeterminada de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  name="Salida de columna derivada"
+                  synchronousInputId="Package\Carga CRM xlsx\Columna derivada.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Columna derivada.Outputs[Salida de columna derivada].Columns[IdFichero]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Carga CRM xlsx\Columna derivada.Outputs[Salida de columna derivada].Columns[IdFichero]"
+                      name="IdFichero"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">@[User::IdFichero]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::IdFichero]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga CRM xlsx\Columna derivada.Outputs[Salida de error de columna derivada]"
+                  description="Salida de error de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de columna derivada"
+                  synchronousInputId="Package\Carga CRM xlsx\Columna derivada.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga CRM xlsx\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga CRM xlsx\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga CRM xlsx\Conversión de datos"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Conversión de datos;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Conversión de datos"
+              name="Conversión de datos"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Carga CRM xlsx\Conversión de datos.Inputs[Entrada de conversión de datos]"
+                  name="Entrada de conversión de datos">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Continent]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Continent"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Continent]" />
+                    <inputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Country"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Country]" />
+                    <inputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="City"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[City]" />
+                    <inputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[Telephone No#]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Telephone No#"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Telephone No#]" />
+                    <inputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Inputs[Entrada de conversión de datos].Columns[COOP - Status Lead]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="COOP - Status Lead"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status Lead]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos]"
+                  exclusionGroup="1"
+                  name="Salida de conversión de datos"
+                  synchronousInputId="Package\Carga CRM xlsx\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Continent]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="20"
+                      lineageId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Continent]"
+                      name="Copia de Continent"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Continent]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Country]"
+                      name="Copia de Country"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Country]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de City]"
+                      name="Copia de City"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[City]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Telephone No#]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="200"
+                      lineageId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de Telephone No#]"
+                      name="Copia de Telephone No#"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Telephone No#]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de COOP - Status Lead]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      length="25"
+                      lineageId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos].Columns[Copia de COOP - Status Lead]"
+                      name="Copia de COOP - Status Lead"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Especifica la columna de entrada usada como origen de datos para la conversión."
+                          name="SourceInputColumnLineageID">#{Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status Lead]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indica si la columna usa las rutinas de análisis más rápidas independientes de la configuración regional."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de error de conversión de datos]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de conversión de datos"
+                  synchronousInputId="Package\Carga CRM xlsx\Conversión de datos.Inputs[Entrada de conversión de datos]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de error de conversión de datos].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga CRM xlsx\Destino de ADO NET"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Carga datos en una base de datos compatible con ADO.NET que use una vista o tabla de base de datos. Se cargan datos en una tabla nueva o existente. Por ejemplo, se usa un proveedor ADO.NET para ODBC para cargar datos en un destino ODBC.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;2"
+              description="Carga datos en una base de datos compatible con ADO.NET que use una vista o tabla de base de datos. Se cargan datos en una tabla nueva o existente. Por ejemplo, se usa un proveedor ADO.NET para ODBC para cargar datos en un destino ODBC."
+              name="Destino de ADO NET"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Nombre de la tabla de la base de datos de destino."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"input"."T_CNQ_FicherosCRM"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifique el número de filas por lote. El valor predeterminado es 0, que utiliza el mismo tamaño que el búfer interno de SSIS. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Especifica si se debe usar la interfaz SqlBulkCopy para mejorar el rendimiento de las operaciones de inserción masiva. No todos los proveedores admiten esta interfaz."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga CRM xlsx\Destino de ADO NET.Connections[IDbConnection]"
+                  connectionManagerID="{11E541B9-8682-42BF-9E46-A6827FBA7CEF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[iq6z8q65gz database windows net 1433 Conqueror CNQ_SSISUser]"
+                  description="Administrador de conexiones administrado"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de ADO NET">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[IdFichero]"
+                      cachedDataType="i4"
+                      cachedName="IdFichero"
+                      externalMetadataColumnId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[IdFichero]"
+                      lineageId="Package\Carga CRM xlsx\Columna derivada.Outputs[Salida de columna derivada].Columns[IdFichero]" />
+                    <inputColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].Columns[Company Name]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Company Name"
+                      externalMetadataColumnId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[CompanyName]"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Company Name]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[IdFichero]"
+                      dataType="i4"
+                      name="IdFichero" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[IdCRM]"
+                      dataType="i4"
+                      name="IdCRM" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[CompanyName]"
+                      dataType="wstr"
+                      length="255"
+                      name="CompanyName" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Continent]"
+                      dataType="wstr"
+                      length="20"
+                      name="Continent" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="50"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="100"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[FirstName]"
+                      dataType="wstr"
+                      length="255"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[Email]"
+                      dataType="wstr"
+                      length="200"
+                      name="Email" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[TelephoneNo]"
+                      dataType="wstr"
+                      length="200"
+                      name="TelephoneNo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET].ExternalColumns[StatusLead]"
+                      dataType="wstr"
+                      length="25"
+                      name="StatusLead" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Carga CRM xlsx\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de ADO NET"
+                  synchronousInputId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga CRM xlsx\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga CRM xlsx\Destino de ADO NET.Outputs[Salida de error de destino de ADO NET].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Carga CRM xlsx\Origen de Excel"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+              description="Origen de Excel"
+              name="Origen de Excel"
+              usesDispositions="true"
+              validateExternalMetadata="False"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">'Todos los clientes potenciales$'</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable">User::Sheet</property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable">User::Sheet</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="La asignación de parámetros del comando SQL a variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Carga CRM xlsx\Origen de Excel.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[CRM xlsx]"
+                  connectionManagerRefId="Package.ConnectionManagers[CRM xlsx]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel]"
+                  name="Salida de origen de Excel">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Company Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Company Name]"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Company Name]"
+                      name="Company Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Continent]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Continent]"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Continent]"
+                      name="Continent"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Country]"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[City]"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[ Nombre Completo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[ Nombre Completo]"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[ Nombre Completo]"
+                      name=" Nombre Completo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Telephone No#]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Telephone No#]"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[Telephone No#]"
+                      name="Telephone No#"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status Lead]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[COOP - Status Lead]"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].Columns[COOP - Status Lead]"
+                      name="COOP - Status Lead"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[(No modificar) Cliente potencial]"
+                      dataType="wstr"
+                      length="255"
+                      name="(No modificar) Cliente potencial" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[(No modificar) Suma de comprobación de fila]"
+                      dataType="wstr"
+                      length="255"
+                      name="(No modificar) Suma de comprobación de fila" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[(No modificar) Fecha de modificación]"
+                      dataType="date"
+                      name="(No modificar) Fecha de modificación" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Company Name]"
+                      dataType="wstr"
+                      length="255"
+                      name="Company Name" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Continent]"
+                      dataType="wstr"
+                      length="255"
+                      name="Continent" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="255"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="255"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[ Nombre Completo]"
+                      dataType="wstr"
+                      length="255"
+                      name=" Nombre Completo" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[Telephone No#]"
+                      dataType="wstr"
+                      length="255"
+                      name="Telephone No#" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[COOP - Status Lead]"
+                      dataType="wstr"
+                      length="255"
+                      name="COOP - Status Lead" />
+                    <externalMetadataColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel].ExternalColumns[F11]"
+                      dataType="wstr"
+                      length="255"
+                      name="F11" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de Excel">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Company Name]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Company Name]"
+                      name="Company Name" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Continent]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Continent]"
+                      name="Continent" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Country]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Country]"
+                      name="Country" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[City]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ Nombre Completo]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ Nombre Completo]"
+                      name=" Nombre Completo" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Telephone No#]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[Telephone No#]"
+                      name="Telephone No#" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[COOP - Status Lead]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[COOP - Status Lead]"
+                      name="COOP - Status Lead" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Carga CRM xlsx.Paths[Salida de columna derivada]"
+              endId="Package\Carga CRM xlsx\Destino de ADO NET.Inputs[Entrada de destino de ADO NET]"
+              name="Salida de columna derivada"
+              startId="Package\Carga CRM xlsx\Columna derivada.Outputs[Salida de columna derivada]" />
+            <path
+              refId="Package\Carga CRM xlsx.Paths[Salida de conversión de datos]"
+              endId="Package\Carga CRM xlsx\Columna derivada.Inputs[Entrada de columna derivada]"
+              name="Salida de conversión de datos"
+              startId="Package\Carga CRM xlsx\Conversión de datos.Outputs[Salida de conversión de datos]" />
+            <path
+              refId="Package\Carga CRM xlsx.Paths[Salida de origen de Excel]"
+              endId="Package\Carga CRM xlsx\Conversión de datos.Inputs[Entrada de conversión de datos]"
+              name="Salida de origen de Excel"
+              startId="Package\Carga CRM xlsx\Origen de Excel.Outputs[Salida de origen de Excel]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Log Fin de Carga"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{A026FF7E-DAB4-4DE3-9049-1E10E8DFAA4A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Log Fin de Carga"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{11E541B9-8682-42BF-9E46-A6827FBA7CEF}"
+          SQLTask:SqlStatementSource="EXEC [input].[PR_CNQ_FicheroCargaFin] @IdFichero" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="@IdFichero"
+            SQLTask:DtsVariableName="User::IdFichero"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="11"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Log Inicio de Carga"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{5C051097-DD19-42EC-AD74-424A60F44671}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Log Inicio de Carga"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{11E541B9-8682-42BF-9E46-A6827FBA7CEF}"
+          SQLTask:SqlStatementSource="DECLARE @IdFichero INT&#xA;&#xA;EXEC @IdFichero = [input].[PR_CNQ_FicheroCargaInicio] 4,@DsFichero&#xA;&#xA;SELECT @IdFichero as IdFichero"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::IdFichero" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="@DsFichero"
+            SQLTask:DtsVariableName="User::FicheroCRM"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="16"
+            SQLTask:ParameterSize="100" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{862B76A2-A7B4-45F6-80D3-B8A7B4BC866F}"
+      DTS:EvalOp="3"
+      DTS:Expression="@[User::IdFichero]&gt;0 &amp;&amp; RIGHT(@[User::FicheroCRM],4)==&quot;xlsx&quot;"
+      DTS:From="Package\Log Inicio de Carga"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Carga CRM xlsx" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{2E50047F-8ECB-42E7-897F-2D0DC4D89AF1}"
+      DTS:From="Package\Log Fin de Carga"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\Archivar" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{50F642E8-AFD1-4BE9-8985-BA5040729B16}"
+      DTS:From="Package\Carga CRM xlsx"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 4"
+      DTS:To="Package\Log Fin de Carga" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="sql12">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Log Inicio de Carga"
+          TopLeft="5.5,5.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="90.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,18.25,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="152,42"
+          Id="Package\Carga CRM xlsx"
+          TopLeft="14.5,107.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 4]"
+          TopLeft="90.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Log Fin de Carga"
+          TopLeft="11,209.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="90.5,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Archivar"
+          TopLeft="15,311.5" />
+        <AnnotationLayout
+          Text="MANUAL"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="78,60"
+          Id="6e4717a5-d518-42f7-84f0-54d8d6429e06"
+          TopLeft="226,92" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Carga CRM xlsx">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Carga CRM xlsx\Origen de Excel"
+          TopLeft="19,6.5" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Carga CRM xlsx\Destino de ADO NET"
+          TopLeft="6.50000000000004,332.5" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Carga CRM xlsx\Conversión de datos"
+          TopLeft="7.00000000000003,171" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\Carga CRM xlsx\Columna derivada"
+          TopLeft="11.5,250.75" />
+        <EdgeLayout
+          Id="Package\Carga CRM xlsx.Paths[Salida de conversión de datos]"
+          TopLeft="94,213">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.75"
+              Start="0,0"
+              End="0,30.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga CRM xlsx.Paths[Salida de origen de Excel]"
+          TopLeft="94,48.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,122.5"
+              Start="0,0"
+              End="0,115">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,115" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Carga CRM xlsx.Paths[Salida de columna derivada]"
+          TopLeft="94,292.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.75"
+              Start="0,0"
+              End="0,32.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga CRM xlsx\Origen de Excel">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Carga CRM xlsx\Destino de ADO NET">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

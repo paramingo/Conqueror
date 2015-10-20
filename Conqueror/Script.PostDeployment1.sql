@@ -15,7 +15,8 @@ MERGE INTO [input].[T_CNQ_FicherosTipos] AS Target
 USING (VALUES
 	(1, 'BBDD General'),
 	(2, 'Asociaciones'),
-	(3, 'Directorios')
+	(3, 'Directorios'),
+	(4, 'CRM')
 )
 AS Source (IdFicheroTipo, FicheroTipo)
 ON Target.IdFicheroTipo = Source.IdFicheroTipo
