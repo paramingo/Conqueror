@@ -23,6 +23,78 @@ BEGIN
 								WHEN 'Eurpe' THEN 'Europe' END
 	WHERE Continent IN ('Asia FE','Asia ME','Eurpe')
 
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'United States of America'
+	WHERE Country LIKE 'Unit%St%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'United Arab Emirates'
+	WHERE Country = 'Unitd Arab Emirates'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Russian Federation'
+	WHERE Country = 'Russia'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Bosnia and Herzegovina'
+	WHERE Country LIKE 'Bosnia%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Czech Republic'
+	WHERE Country = 'Czech Rep'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Netherlands'
+	WHERE Country = 'Netherland'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Canada'
+	WHERE Country LIKE 'Canada%'
+	UPDATE [input].[T_CNQ_FicherosCRM]
+	SET Country = 'Canada'
+	WHERE Country LIKE 'Canada%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Trinidad & Tobago'
+	WHERE Country LIKE 'Trini%Tob%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Korea Republic of'
+	WHERE Country LIKE 'Korea%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Italy'
+	WHERE Country LIKE 'Italy%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Syrian Arab Republic'
+	WHERE Country LIKE 'Syr%'
+	UPDATE [input].[T_CNQ_Ficheros]
+	SET Country = 'Antigua & Barbuda'
+	WHERE Country LIKE 'antig%barb%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Antigua & Barbuda'
+	WHERE Country LIKE 'antig%barb%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Fiji'
+	WHERE Country LIKE 'Fiji%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Luxembourg'
+	WHERE Country LIKE 'Luxem%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Burkina Faso'
+	WHERE Country LIKE 'Burkin%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Serbia'
+	WHERE Country LIKE 'Serbia%'
+	UPDATE [input].[T_CNQ_FicherosDirectorios]
+	SET Country = 'Chad'
+	WHERE Country LIKE 'Chad Rep%'
+
+	UPDATE A
+	SET A.Continent = G.Continent
+	FROM [input].[T_CNQ_FicherosAsociaciones] A
+	INNER JOIN (SELECT DISTINCT Continent, Country
+				FROM [process].[T_CNQ_GeographyOriginal]) G ON A.Country = G.Country
+	WHERE ISNULL(A.Continent,'<') <> ISNULL(G.Continent,'>')
+
+	UPDATE D
+	SET D.Continent = G.Continent
+	FROM [input].[T_CNQ_FicherosDirectorios] D
+	INNER JOIN (SELECT DISTINCT Continent, Country
+				FROM [process].[T_CNQ_GeographyOriginal]) G ON D.Country = G.Country
+	WHERE ISNULL(D.Continent,'<') <> ISNULL(G.Continent,'>')
+
 	MERGE [process].[T_CNQ_Geography] AS TARGET
 	USING (SELECT DISTINCT [Continent]
 				,[Country]
@@ -249,6 +321,13 @@ BEGIN
 	FROM [process].[T_CNQ_TitleSynonym] TS
 	WHERE FirstName IS NOT NULL
 		AND [TitleSynonym] = RTRIM(SUBSTRING(LTRIM([FirstName]),1,CHARINDEX(' ',[FirstName],1)))
+
+	-- Al final la información inicial de estos campos no importa
+	UPDATE process.T_CNQ_FicherosProcesados
+	SET CQRIdStatusLead = NULL
+		,CQRIdStatusLeadDetail = NULL
+		,COOPIdStatusLead = NULL
+		,COOPIdStatusLeadDetail = NULL
 
 	-- Reconstrucción de índices
 	ALTER INDEX ALL ON process.T_CNQ_FicherosProcesados REBUILD

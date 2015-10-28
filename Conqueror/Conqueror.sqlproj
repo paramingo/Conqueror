@@ -178,9 +178,15 @@
     <Build Include="Tables\input.T_CNQ_FicherosCRM.sql" />
     <Build Include="Tables\process.T_CNQ_FicherosCRMProcesados.sql" />
     <Build Include="Stored Procedures\process.PR_CNQ_FicherosCRMProcesoInicial.sql" />
+    <Build Include="Tables\output.T_CNQ_LogUpdateCRM.sql" />
+    <Build Include="Tables\process.T_CNQ_GeographyOriginal.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
+    <Build Include="Stored Procedures\output.PR_CNQ_ContactosGenerarStatusLeadCRM.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />
+    <None Include="Conqueror.Local.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Conqueror.refactorlog" />

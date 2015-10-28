@@ -97,5 +97,5 @@ BEGIN
 	CLOSE LineasFichero
 	DEALLOCATE LineasFichero
 
-
+	EXEC [output].[PR_CNQ_ContactosGenerarStatusLeadCRM]
 END
