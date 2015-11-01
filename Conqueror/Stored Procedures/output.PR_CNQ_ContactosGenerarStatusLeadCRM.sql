@@ -8,6 +8,12 @@ BEGIN
 
 	TRUNCATE TABLE output.T_CNQ_LogUpdateCRM
 
+	UPDATE process.T_CNQ_FicherosProcesados
+	SET CQRIdStatusLead = NULL
+		,CQRIdStatusLeadDetail = NULL
+		,COOPIdStatusLead = NULL
+		,COOPIdStatusLeadDetail = NULL
+
 	-- CQR
 
 	-- Eliminar duplicados
@@ -120,6 +126,35 @@ BEGIN
 												(SELECT CompanyName FROM [output].[T_CNQ_Contactos] C WHERE C.IdContacto = output.T_CNQ_LogUpdateCRM.IdContacto))
 	WHERE Fase = 6
 
+	-- Coincidencias de City con flexibilidad en Company Name y First Name sin Email (sin incluir Agentes)
+	UPDATE C
+	SET CQRIdStatusLead = CRM.CQRIdStatusLead
+	OUTPUT CRM.IdCRM, DELETED.IdContacto, 7, NULL, 0, CRM.IdNetwork INTO output.T_CNQ_LogUpdateCRM	
+	FROM [process].[T_CNQ_FicherosCRMProcesados] CRM
+	INNER JOIN [output].[T_CNQ_Contactos] C ON (CRM.Email = C.Email OR CRM.Email IS NULL)
+												AND CRM.IdGeography <> C.IdGeography
+												AND (SELECT City FROM process.T_CNQ_Geography WHERE IdGeography = CRM.IdGeography) = 
+													(SELECT City FROM process.T_CNQ_Geography WHERE IdGeography = C.IdGeography)
+												AND [process].[FN_CNQ_LevenshteinMod](CRM.FirstName, C.FirstName) < 0.3 -- OR (CRM.FirstName IS NULL AND C.FirstName IS NULL))
+												AND [process].[FN_CNQ_LevenshteinMod](CRM.CompanyName, C.CompanyName) < 1.5
+												AND C.IdContacto NOT IN (SELECT IdContacto FROM [output].[T_CNQ_LogUpdateCRM] WHERE IdContacto IS NOT NULL AND IdNetwork = 1)
+	WHERE IdNetwork = 1
+		AND CRM.IdCRM NOT IN (SELECT IdCRM FROM [output].[T_CNQ_LogUpdateCRM])
+
+	-- Coincidencias geográficas con flexibilidad en Company Name y First Name sin Email (sin incluir Agentes)
+	UPDATE C
+	SET CQRIdStatusLead = CRM.CQRIdStatusLead
+	OUTPUT CRM.IdCRM, DELETED.IdContacto, 8, NULL, 0, CRM.IdNetwork INTO output.T_CNQ_LogUpdateCRM	
+	FROM [process].[T_CNQ_FicherosCRMProcesados] CRM
+	INNER JOIN [output].[T_CNQ_Contactos] C ON CRM.Email IS NULL
+												AND CRM.IdGeography = C.IdGeography
+												AND ([process].[FN_CNQ_LevenshteinMod](CRM.FirstName, C.FirstName) < 0.26
+													AND ISNULL(CRM.FirstName,'') <> '' AND ISNULL(C.FirstName,'') <> '')
+												AND [process].[FN_CNQ_LevenshteinMod](CRM.CompanyName, C.CompanyName) < 0.62
+												AND C.IdContacto NOT IN (SELECT IdContacto FROM [output].[T_CNQ_LogUpdateCRM] WHERE IdContacto IS NOT NULL AND IdNetwork = 1)
+	WHERE IdNetwork = 1
+		AND CRM.IdCRM NOT IN (SELECT IdCRM FROM [output].[T_CNQ_LogUpdateCRM])
+
 	-- COOP
 
 	-- Eliminar duplicados
@@ -231,6 +266,35 @@ BEGIN
 	SET Similarity = [process].[FN_CNQ_LevenshteinMod]((SELECT CompanyName FROM [process].[T_CNQ_FicherosCRMProcesados] CRM WHERE CRM.IdCRM = output.T_CNQ_LogUpdateCRM.IdCRM),
 												(SELECT CompanyName FROM [output].[T_CNQ_Contactos] C WHERE C.IdContacto = output.T_CNQ_LogUpdateCRM.IdContacto))
 	WHERE Fase = 16
+
+	-- Coincidencias de City con flexibilidad en Company Name y First Name sin Email (sin incluir Agentes)
+	UPDATE C
+	SET CQRIdStatusLead = CRM.CQRIdStatusLead
+	OUTPUT CRM.IdCRM, DELETED.IdContacto, 17, NULL, 0, CRM.IdNetwork INTO output.T_CNQ_LogUpdateCRM	
+	FROM [process].[T_CNQ_FicherosCRMProcesados] CRM
+	INNER JOIN [output].[T_CNQ_Contactos] C ON (CRM.Email = C.Email OR CRM.Email IS NULL)
+												AND CRM.IdGeography <> C.IdGeography
+												AND (SELECT City FROM process.T_CNQ_Geography WHERE IdGeography = CRM.IdGeography) = 
+													(SELECT City FROM process.T_CNQ_Geography WHERE IdGeography = C.IdGeography)
+												AND [process].[FN_CNQ_LevenshteinMod](CRM.FirstName, C.FirstName) < 0.3 -- OR (CRM.FirstName IS NULL AND C.FirstName IS NULL))
+												AND [process].[FN_CNQ_LevenshteinMod](CRM.CompanyName, C.CompanyName) < 1.5
+												AND C.IdContacto NOT IN (SELECT IdContacto FROM [output].[T_CNQ_LogUpdateCRM] WHERE IdContacto IS NOT NULL AND IdNetwork = 2)
+	WHERE IdNetwork = 2
+		AND CRM.IdCRM NOT IN (SELECT IdCRM FROM [output].[T_CNQ_LogUpdateCRM])
+
+	-- Coincidencias geográficas con flexibilidad en Company Name y First Name sin Email (sin incluir Agentes)
+	UPDATE C
+	SET CQRIdStatusLead = CRM.CQRIdStatusLead
+	OUTPUT CRM.IdCRM, DELETED.IdContacto, 18, NULL, 0, CRM.IdNetwork INTO output.T_CNQ_LogUpdateCRM	
+	FROM [process].[T_CNQ_FicherosCRMProcesados] CRM
+	INNER JOIN [output].[T_CNQ_Contactos] C ON CRM.Email IS NULL
+												AND CRM.IdGeography = C.IdGeography
+												AND ([process].[FN_CNQ_LevenshteinMod](CRM.FirstName, C.FirstName) < 0.26
+													AND ISNULL(CRM.FirstName,'') <> '' AND ISNULL(C.FirstName,'') <> '')
+												AND [process].[FN_CNQ_LevenshteinMod](CRM.CompanyName, C.CompanyName) < 0.62
+												AND C.IdContacto NOT IN (SELECT IdContacto FROM [output].[T_CNQ_LogUpdateCRM] WHERE IdContacto IS NOT NULL AND IdNetwork = 2)
+	WHERE IdNetwork = 2
+		AND CRM.IdCRM NOT IN (SELECT IdCRM FROM [output].[T_CNQ_LogUpdateCRM])
 
 	COMMIT TRAN
 END
