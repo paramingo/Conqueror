@@ -44,7 +44,7 @@ BEGIN
 	MERGE [process].[T_CNQ_Geography] AS TARGET
 	USING (SELECT DISTINCT [Continent]
 				,[Country]
-				,[City]
+				,process.FN_CNQ_City([City]) AS City
 			FROM [input].[T_CNQ_FicherosCRM]
 			) AS SOURCE
 	ON ISNULL(TARGET.[Continent],'NULL') = ISNULL(SOURCE.[Continent],'NULL')
@@ -66,7 +66,7 @@ BEGIN
 	INNER JOIN [input].[T_CNQ_FicherosRegistro] FR ON F.IdFichero = FR.IdFichero
 	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(F.Continent,'NULL') = ISNULL(G.Continent,'NULL')
 											AND ISNULL(F.Country,'NULL') = ISNULL(G.Country,'NULL')
-											AND ISNULL(F.City,'NULL') = ISNULL(G.City,'NULL')
+											AND ISNULL(process.FN_CNQ_City(F.City),'NULL') = ISNULL(G.City,'NULL')
 	LEFT OUTER JOIN [process].[T_CNQ_StatusLead] COOPSL ON F.StatusLead = COOPSL.StatusLead AND COOPSL.IdNetwork = 2 AND FR.DsFichero LIKE '%COOP%'
 	LEFT OUTER JOIN [process].[T_CNQ_StatusLead] CQRSL ON F.StatusLead = CQRSL.StatusLead AND CQRSL.IdNetwork = 1 AND FR.DsFichero LIKE '%CQR%'
 

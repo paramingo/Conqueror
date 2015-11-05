@@ -98,17 +98,17 @@ BEGIN
 	MERGE [process].[T_CNQ_Geography] AS TARGET
 	USING (SELECT DISTINCT [Continent]
 				,[Country]
-				,[City]
+				,process.FN_CNQ_City([City]) AS City
 			FROM [input].[T_CNQ_Ficheros]
 			UNION
 			SELECT DISTINCT [Continent]
 				,[Country]
-				,[City]
+				,process.FN_CNQ_City([City])
 			FROM [input].[T_CNQ_FicherosAsociaciones]
 			UNION
 			SELECT DISTINCT [Continent]
 				,[Country]
-				,[City]
+				,process.FN_CNQ_City([City])
 			FROM [input].[T_CNQ_FicherosDirectorios]
 			) AS SOURCE
 	ON ISNULL(TARGET.[Continent],'NULL') = ISNULL(SOURCE.[Continent],'NULL')
@@ -123,6 +123,7 @@ BEGIN
 
 	-- BBDD General
 	PRINT 'BBDD General'
+
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
 	(IdLinea, IdFichero, Source, IdGeography, Email, FirstName, CompanyName, Address, PostalCode,
 		TelephoneNo, COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
@@ -132,9 +133,9 @@ BEGIN
 	FROM [input].[T_CNQ_Ficheros] F
 	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(F.Continent,'NULL') = ISNULL(G.Continent,'NULL')
 											AND ISNULL(F.Country,'NULL') = ISNULL(G.Country,'NULL')
-											AND ISNULL(F.City,'NULL') = ISNULL(G.City,'NULL')
-	INNER JOIN [process].[T_CNQ_StatusLead] COOPSL ON F.COOPStatusLead = COOPSL.StatusLead AND COOPSL.IdNetwork = 2
-	INNER JOIN [process].[T_CNQ_StatusLead] CQRSL ON F.CQRStatusLead = CQRSL.StatusLead AND CQRSL.IdNetwork = 1
+											AND ISNULL(process.FN_CNQ_City(F.City),'NULL') = ISNULL(G.City,'NULL')
+	INNER JOIN [process].[T_CNQ_StatusLead] COOPSL ON REPLACE(REPLACE(F.COOPStatusLead,'COOP ',''),'CQR ','') = COOPSL.StatusLead AND COOPSL.IdNetwork = 2
+	INNER JOIN [process].[T_CNQ_StatusLead] CQRSL ON REPLACE(REPLACE(F.CQRStatusLead,'COOP ',''),'CQR ','') = CQRSL.StatusLead AND CQRSL.IdNetwork = 1
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] COOPSC ON F.COOPStatusCity = COOPSC.StatusCity AND COOPSC.IdNetwork = 2
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] CQRSC ON F.CQRStatusCity = CQRSC.StatusCity AND CQRSC.IdNetwork = 1
 
@@ -147,9 +148,9 @@ BEGIN
 	FROM [input].[T_CNQ_Ficheros] F
 	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(F.Continent,'NULL') = ISNULL(G.Continent,'NULL')
 											AND ISNULL(F.Country,'NULL') = ISNULL(G.Country,'NULL')
-											AND ISNULL(F.City,'NULL') = ISNULL(G.City,'NULL')
-	INNER JOIN [process].[T_CNQ_StatusLead] COOPSL ON F.COOPStatusLead LIKE '%'+COOPSL.StatusLead+'%' AND COOPSL.IdNetwork = 2
-	INNER JOIN [process].[T_CNQ_StatusLead] CQRSL ON F.CQRStatusLead LIKE '%'+CQRSL.StatusLead+'%' AND CQRSL.IdNetwork = 1
+											AND ISNULL(process.FN_CNQ_City(F.City),'NULL') = ISNULL(G.City,'NULL')
+	INNER JOIN [process].[T_CNQ_StatusLead] COOPSL ON REPLACE(REPLACE(F.COOPStatusLead,'COOP ',''),'CQR ','') LIKE '%'+COOPSL.StatusLead+'%' AND COOPSL.IdNetwork = 2
+	INNER JOIN [process].[T_CNQ_StatusLead] CQRSL ON REPLACE(REPLACE(F.CQRStatusLead,'COOP ',''),'CQR ','') LIKE '%'+CQRSL.StatusLead+'%' AND CQRSL.IdNetwork = 1
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] COOPSC ON F.COOPStatusCity = COOPSC.StatusCity AND COOPSC.IdNetwork = 2
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] CQRSC ON F.CQRStatusCity = CQRSC.StatusCity AND CQRSC.IdNetwork = 1
 	LEFT OUTER JOIN [process].[T_CNQ_FicherosProcesados] FP ON F.IdLinea = FP.IdLinea AND F.IdFichero = FP.IdFichero
@@ -182,7 +183,7 @@ BEGIN
 	FROM [input].[T_CNQ_FicherosAsociaciones] A
 	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(A.Continent,'NULL') = ISNULL(G.Continent,'NULL')
 											AND ISNULL(A.Country,'NULL') = ISNULL(G.Country,'NULL')
-											AND ISNULL(A.City,'NULL') = ISNULL(G.City,'NULL')
+											AND ISNULL(process.FN_CNQ_City(A.City),'NULL') = ISNULL(G.City,'NULL')
 	LEFT OUTER JOIN [process].[T_CNQ_TitleSynonym] TS ON A.Title = TS.TitleSynonym
 	INNER JOIN [process].[T_CNQ_StatusLead] COOPSL ON A.COOPStatusLead = COOPSL.StatusLead AND COOPSL.IdNetwork = 2
 	INNER JOIN [process].[T_CNQ_StatusLead] CQRSL ON A.CQRStatusLead = CQRSL.StatusLead AND CQRSL.IdNetwork = 1
@@ -200,7 +201,7 @@ BEGIN
 	FROM [input].[T_CNQ_FicherosAsociaciones] A
 	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(A.Continent,'NULL') = ISNULL(G.Continent,'NULL')
 											AND ISNULL(A.Country,'NULL') = ISNULL(G.Country,'NULL')
-											AND ISNULL(A.City,'NULL') = ISNULL(G.City,'NULL')
+											AND ISNULL(process.FN_CNQ_City(A.City),'NULL') = ISNULL(G.City,'NULL')
 	LEFT OUTER JOIN [process].[T_CNQ_TitleSynonym] TS ON A.Title = TS.TitleSynonym
 	INNER JOIN [process].[T_CNQ_StatusLead] COOPSL ON A.COOPStatusLead LIKE '%'+COOPSL.StatusLead+'%' AND COOPSL.IdNetwork = 2
 	INNER JOIN [process].[T_CNQ_StatusLead] CQRSL ON A.CQRStatusLead LIKE '%'+CQRSL.StatusLead+'%' AND CQRSL.IdNetwork = 1
@@ -218,7 +219,7 @@ BEGIN
 	FROM [input].[T_CNQ_FicherosAsociaciones] A
 	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(A.Continent,'NULL') = ISNULL(G.Continent,'NULL')
 											AND ISNULL(A.Country,'NULL') = ISNULL(G.Country,'NULL')
-											AND ISNULL(A.City,'NULL') = ISNULL(G.City,'NULL')
+											AND ISNULL(process.FN_CNQ_City(A.City),'NULL') = ISNULL(G.City,'NULL')
 	LEFT OUTER JOIN [process].[T_CNQ_TitleSynonym] TS ON A.Title = TS.TitleSynonym
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] COOPSC ON A.COOPStatusCity = COOPSC.StatusCity AND COOPSC.IdNetwork = 2
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] CQRSC ON A.CQRStatusCity = CQRSC.StatusCity AND CQRSC.IdNetwork = 1
@@ -252,7 +253,7 @@ BEGIN
 	FROM [input].[T_CNQ_FicherosDirectorios] D
 	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(D.Continent,'NULL') = ISNULL(G.Continent,'NULL')
 											AND ISNULL(D.Country,'NULL') = ISNULL(G.Country,'NULL')
-											AND ISNULL(D.City,'NULL') = ISNULL(G.City,'NULL')
+											AND ISNULL(process.FN_CNQ_City(D.City),'NULL') = ISNULL(G.City,'NULL')
 	LEFT OUTER JOIN [process].[T_CNQ_TitleSynonym] TS ON D.Title = TS.TitleSynonym
 	INNER JOIN [process].[T_CNQ_StatusLead] COOPSL ON D.COOPStatusLead = COOPSL.StatusLead AND COOPSL.IdNetwork = 2
 	INNER JOIN [process].[T_CNQ_StatusLead] CQRSL ON D.CQRStatusLead = CQRSL.StatusLead AND CQRSL.IdNetwork = 1
@@ -270,7 +271,7 @@ BEGIN
 	FROM [input].[T_CNQ_FicherosDirectorios] D
 	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(D.Continent,'NULL') = ISNULL(G.Continent,'NULL')
 											AND ISNULL(D.Country,'NULL') = ISNULL(G.Country,'NULL')
-											AND ISNULL(D.City,'NULL') = ISNULL(G.City,'NULL')
+											AND ISNULL(process.FN_CNQ_City(D.City),'NULL') = ISNULL(G.City,'NULL')
 	LEFT OUTER JOIN [process].[T_CNQ_TitleSynonym] TS ON D.Title = TS.TitleSynonym
 	INNER JOIN [process].[T_CNQ_StatusLead] COOPSL ON D.COOPStatusLead LIKE '%'+COOPSL.StatusLead+'%' AND COOPSL.IdNetwork = 2
 	INNER JOIN [process].[T_CNQ_StatusLead] CQRSL ON D.CQRStatusLead LIKE '%'+CQRSL.StatusLead+'%' AND CQRSL.IdNetwork = 1
@@ -288,7 +289,7 @@ BEGIN
 	FROM [input].[T_CNQ_FicherosDirectorios] D
 	INNER JOIN [process].[T_CNQ_Geography] G ON ISNULL(D.Continent,'NULL') = ISNULL(G.Continent,'NULL')
 											AND ISNULL(D.Country,'NULL') = ISNULL(G.Country,'NULL')
-											AND ISNULL(D.City,'NULL') = ISNULL(G.City,'NULL')
+											AND ISNULL(process.FN_CNQ_City(D.City),'NULL') = ISNULL(G.City,'NULL')
 	LEFT OUTER JOIN [process].[T_CNQ_TitleSynonym] TS ON D.Title = TS.TitleSynonym
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] COOPSC ON D.COOPStatusCity = COOPSC.StatusCity AND COOPSC.IdNetwork = 2
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] CQRSC ON D.CQRStatusCity = CQRSC.StatusCity AND CQRSC.IdNetwork = 1

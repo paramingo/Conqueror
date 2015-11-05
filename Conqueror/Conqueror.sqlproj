@@ -186,6 +186,7 @@
     </Build>
     <Build Include="Stored Procedures\output.PR_CNQ_ContactosGenerarStatusLeadCRM.sql" />
     <Build Include="output\Views\output.V_CNQ_InformeCargaFicherosCRM.sql" />
+    <Build Include="Functions\process.FN_CNQ_City.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />
