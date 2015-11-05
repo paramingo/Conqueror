@@ -14,6 +14,12 @@ BEGIN
 		,COOPIdStatusLead = NULL
 		,COOPIdStatusLeadDetail = NULL
 
+	UPDATE output.T_CNQ_Contactos
+	SET CQRIdStatusLead = NULL
+		,CQRIdStatusLeadDetail = NULL
+		,COOPIdStatusLead = NULL
+		,COOPIdStatusLeadDetail = NULL
+
 	-- CQR
 
 	-- Eliminar duplicados

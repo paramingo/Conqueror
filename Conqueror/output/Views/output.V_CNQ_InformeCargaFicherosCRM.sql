@@ -1,4 +1,5 @@
 ﻿
+
 CREATE VIEW [output].[V_CNQ_InformeCargaFicherosCRM]
 AS
 SELECT FR.DsFichero
@@ -11,6 +12,8 @@ SELECT FR.DsFichero
 		WHEN FASE IN (6,16) THEN 'Coincidencias totales con flexibilidad en Company Name sin Email (sin incluir Agentes)'
 		WHEN FASE IN (7,17) THEN 'Coincidencias de City con flexibilidad en Company Name y First Name sin Email (sin incluir Agentes)'
 		WHEN FASE IN (8,18) THEN 'Coincidencias geográficas con flexibilidad en Company Name y First Name sin Email (sin incluir Agentes)'
+		WHEN ISNULL(Email,'') NOT IN (SELECT ISNULL(Email,'') FROM [output].[T_CNQ_Contactos])
+							THEN 'Sin coincidencia (Email desconocido)'
 		ELSE 'Sin coincidencia'
 		END AS Resultado
 	, LOG.IdContacto
