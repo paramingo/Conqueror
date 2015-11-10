@@ -20,6 +20,7 @@ BEGIN
 		@IdTitle int,
 		@FirstName nvarchar(255),
 		@Surname nvarchar(255),
+		@JobTitle nvarchar(255),
 		@CompanyName nvarchar(255),
 		@Address nvarchar(500),
 		@PostalCode nvarchar(15),
@@ -43,7 +44,7 @@ BEGIN
 
 	DECLARE LineasFichero CURSOR FAST_FORWARD FOR
 	SELECT TOP (@RowLimit) IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname,
-		CompanyName, Address, PostalCode, TelephoneNo, MobileNo, Fax, Website, COOPIdStatusLead,
+		JobTitle, CompanyName, Address, PostalCode, TelephoneNo, MobileNo, Fax, Website, COOPIdStatusLead,
 		COOPIdStatusLeadDetail, CQRIdStatusLead, CQRIdStatusLeadDetail, COOPIdStatusCity, CQRIdStatusCity
 	FROM [process].[T_CNQ_FicherosProcesados]
 	WHERE Email IS NOT NULL
@@ -52,7 +53,7 @@ BEGIN
 	OPEN LineasFichero
 
 	FETCH NEXT FROM LineasFichero INTO @IdLinea, @IdFichero, @Source, @IdGeography, @Email, @IdTitle,
-		@FirstName, @Surname, @CompanyName, @Address, @PostalCode, @TelephoneNo, @MobileNo, @Fax,
+		@FirstName, @Surname, @JobTitle, @CompanyName, @Address, @PostalCode, @TelephoneNo, @MobileNo, @Fax,
 		@Website, @COOPIdStatusLead, @COOPIdStatusLeadDetail, @CQRIdStatusLead, @CQRIdStatusLeadDetail,
 		@COOPIdStatusCity, @CQRIdStatusCity
 
@@ -75,11 +76,11 @@ BEGIN
 		ELSE -- Nuevo
 		BEGIN
 			INSERT INTO [output].[T_CNQ_Contactos]
-			(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName, Address,
+			(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, JobTitle, CompanyName, Address,
 				PostalCode, TelephoneNo, MobileNo, Fax, Website, COOPIdStatusLead, COOPIdStatusLeadDetail, CQRIdStatusLead,
 				CQRIdStatusLeadDetail, COOPIdStatusCity, CQRIdStatusCity)
 			VALUES
-			(@IdLinea, @IdFichero, @Source, @IdGeography, @Email, @IdTitle, @FirstName, @Surname, @CompanyName, @Address,
+			(@IdLinea, @IdFichero, @Source, @IdGeography, @Email, @IdTitle, @FirstName, @Surname, @JobTitle, @CompanyName, @Address,
 				@PostalCode, @TelephoneNo, @MobileNo, @Fax, @Website, @COOPIdStatusLead, @COOPIdStatusLeadDetail, @CQRIdStatusLead,
 				@CQRIdStatusLeadDetail, @COOPIdStatusCity, @CQRIdStatusCity)
 
@@ -89,7 +90,7 @@ BEGIN
 		END
 
 		FETCH NEXT FROM LineasFichero INTO @IdLinea, @IdFichero, @Source, @IdGeography, @Email, @IdTitle,
-			@FirstName, @Surname, @CompanyName, @Address, @PostalCode, @TelephoneNo, @MobileNo, @Fax,
+			@FirstName, @Surname, @JobTitle, @CompanyName, @Address, @PostalCode, @TelephoneNo, @MobileNo, @Fax,
 			@Website, @COOPIdStatusLead, @COOPIdStatusLeadDetail, @CQRIdStatusLead, @CQRIdStatusLeadDetail,
 			@COOPIdStatusCity, @CQRIdStatusCity
 	END

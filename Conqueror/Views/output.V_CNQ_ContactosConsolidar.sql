@@ -1,4 +1,6 @@
-﻿CREATE VIEW [output].[V_CNQ_ContactosConsolidar]
+﻿
+
+CREATE VIEW [output].[V_CNQ_ContactosConsolidar]
 AS
 SELECT [IdContacto]
 	,[Source]
@@ -9,6 +11,7 @@ SELECT [IdContacto]
 	,T.Title
 	,ISNULL([FirstName],'Agent') AS [FirstName]
 	,[Surname]
+	,JobTitle
 	,[CompanyName]
 	,[Address]
 	,[PostalCode]

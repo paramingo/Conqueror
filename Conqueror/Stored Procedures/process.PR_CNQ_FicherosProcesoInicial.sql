@@ -173,10 +173,10 @@ BEGIN
 	-- Asociaciones
 	PRINT 'Asociaciones'
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
-	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName,
+	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, JobTitle, CompanyName,
 		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
 		COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
-	SELECT IdLinea, IdFichero, Source, G.IdGeography, Email, TS.IdTitle, FirstName, Surname, CompanyName,
+	SELECT IdLinea, IdFichero, Source, G.IdGeography, Email, TS.IdTitle, FirstName, Surname, JobTitle, CompanyName,
 		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
 		COOPSL.[IdStatusLead],CQRSL.[IdStatusLead],
 		COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
@@ -191,10 +191,10 @@ BEGIN
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] CQRSC ON A.CQRStatusCity = CQRSC.StatusCity AND CQRSC.IdNetwork = 1
 	
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
-	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName,
+	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, JobTitle, CompanyName,
 		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
 		COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
-	SELECT A.IdLinea, A.IdFichero, A.Source, G.IdGeography, A.Email, TS.IdTitle, A.FirstName, A.Surname, A.CompanyName,
+	SELECT A.IdLinea, A.IdFichero, A.Source, G.IdGeography, A.Email, TS.IdTitle, A.FirstName, A.Surname, A.JobTitle, A.CompanyName,
 		A.Address, A.PostalCode, A.TelephoneNo, A.MobileNo, A.Fax, A.Website,
 		COOPSL.[IdStatusLead],CQRSL.[IdStatusLead],
 		COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
@@ -211,9 +211,9 @@ BEGIN
 	WHERE FP.IdLinea IS NULL AND FP.IdFichero IS NULL
 
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
-	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName,
+	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, JobTitle, CompanyName,
 		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website, COOPIdStatusCity, CQRIdStatusCity)
-	SELECT A.IdLinea, A.IdFichero, A.Source, G.IdGeography, A.Email, TS.IdTitle, A.FirstName, A.Surname, A.CompanyName,
+	SELECT A.IdLinea, A.IdFichero, A.Source, G.IdGeography, A.Email, TS.IdTitle, A.FirstName, A.Surname, A.JobTitle, A.CompanyName,
 		A.Address, A.PostalCode, A.TelephoneNo, A.MobileNo, A.Fax, A.Website,
 		COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
 	FROM [input].[T_CNQ_FicherosAsociaciones] A
@@ -243,10 +243,10 @@ BEGIN
 	-- Directorios
 	PRINT 'Directorios'
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
-	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName,
+	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, JobTitle, CompanyName,
 		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
 		COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
-	SELECT IdLinea, IdFichero, Source, G.IdGeography, Email, TS.IdTitle, FirstName, Surname, CompanyName,
+	SELECT IdLinea, IdFichero, Source, G.IdGeography, Email, TS.IdTitle, FirstName, Surname, D.JobTitle, CompanyName,
 		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
 		COOPSL.[IdStatusLead],CQRSL.[IdStatusLead],
 		COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
@@ -261,10 +261,10 @@ BEGIN
 	LEFT OUTER JOIN [process].[T_CNQ_StatusCity] CQRSC ON D.CQRStatusCity = CQRSC.StatusCity AND CQRSC.IdNetwork = 1
 	
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
-	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName,
+	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, JobTitle, CompanyName,
 		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website,
 		COOPIdStatusLead, CQRIdStatusLead, COOPIdStatusCity, CQRIdStatusCity)
-	SELECT D.IdLinea, D.IdFichero, D.Source, G.IdGeography, D.Email, TS.IdTitle, D.FirstName, D.Surname, D.CompanyName,
+	SELECT D.IdLinea, D.IdFichero, D.Source, G.IdGeography, D.Email, TS.IdTitle, D.FirstName, D.Surname, D.JobTitle, D.CompanyName,
 		D.Address, D.PostalCode, D.TelephoneNo, D.MobileNo, D.Fax, D.Website,
 		COOPSL.[IdStatusLead],CQRSL.[IdStatusLead],
 		COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
@@ -281,9 +281,9 @@ BEGIN
 	WHERE FP.IdLinea IS NULL AND FP.IdFichero IS NULL
 
 	INSERT INTO [process].[T_CNQ_FicherosProcesados]
-	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, CompanyName,
+	(IdLinea, IdFichero, Source, IdGeography, Email, IdTitle, FirstName, Surname, JobTitle, CompanyName,
 		Address, PostalCode, TelephoneNo, MobileNo, Fax, Website, COOPIdStatusCity, CQRIdStatusCity)
-	SELECT D.IdLinea, D.IdFichero, D.Source, G.IdGeography, D.Email, TS.IdTitle, D.FirstName, D.Surname, D.CompanyName,
+	SELECT D.IdLinea, D.IdFichero, D.Source, G.IdGeography, D.Email, TS.IdTitle, D.FirstName, D.Surname, D.JobTitle, D.CompanyName,
 		D.Address, D.PostalCode, D.TelephoneNo, D.MobileNo, D.Fax, D.Website,
 		COOPSC.[IdStatusCity],CQRSC.[IdStatusCity]
 	FROM [input].[T_CNQ_FicherosDirectorios] D

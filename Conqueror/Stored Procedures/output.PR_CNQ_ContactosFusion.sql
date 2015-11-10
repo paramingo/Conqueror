@@ -11,6 +11,7 @@ BEGIN
 		,@IdTitle int
 		,@FirstName nvarchar(255)
 		,@Surname nvarchar(255)
+		,@JobTitle nvarchar(200)
 		,@CompanyName nvarchar(255)
 		,@Address nvarchar(500)
 		,@PostalCode nvarchar(40)
@@ -30,6 +31,7 @@ BEGIN
 		,@F_IdTitle int
 		,@F_FirstName nvarchar(255)
 		,@F_Surname nvarchar(255)
+		,@F_JobTitle nvarchar(200)
 		,@F_CompanyName nvarchar(255)
 		,@F_Address nvarchar(500)
 		,@F_PostalCode nvarchar(40)
@@ -48,6 +50,7 @@ BEGIN
 		,@F_IdTitle = [IdTitle]
 		,@F_FirstName = [FirstName]
 		,@F_Surname = [Surname]
+		,@F_JobTitle = [JobTitle]
 		,@F_CompanyName = [CompanyName]
 		,@F_Address = [Address]
 		,@F_PostalCode = [PostalCode]
@@ -70,6 +73,7 @@ BEGIN
 		,@C_IdTitle int
 		,@C_FirstName nvarchar(255)
 		,@C_Surname nvarchar(255)
+		,@C_JobTitle nvarchar(200)
 		,@C_CompanyName nvarchar(255)
 		,@C_Address nvarchar(500)
 		,@C_PostalCode nvarchar(40)
@@ -88,6 +92,7 @@ BEGIN
 		,@C_IdTitle = [IdTitle]
 		,@C_FirstName = [FirstName]
 		,@C_Surname = [Surname]
+		,@C_JobTitle = [JobTitle]
 		,@C_CompanyName = [CompanyName]
 		,@C_Address = [Address]
 		,@C_PostalCode = [PostalCode]
@@ -164,6 +169,11 @@ BEGIN
 		END
 	END
 
+	-- Job Title
+	SET @JobTitle = CASE WHEN @C_JobTitle IS NULL THEN @F_JobTitle
+						WHEN LEN(@C_JobTitle) < LEN(@F_JobTitle) THEN @F_JobTitle
+						ELSE @C_JobTitle END
+
 	-- Company Name
 	SET @CompanyName = CASE WHEN @C_CompanyName IS NULL THEN @F_CompanyName
 						WHEN LEN(@C_CompanyName) < LEN(@F_CompanyName) THEN @F_CompanyName
@@ -213,6 +223,7 @@ BEGIN
 		,IdTitle = @IdTitle
 		,FirstName = @FirstName
 		,Surname = @Surname
+		,JobTitle = @JobTitle
 		,CompanyName = @CompanyName
 		,Address = @Address
 		,PostalCode = @PostalCode
