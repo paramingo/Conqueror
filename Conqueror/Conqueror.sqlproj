@@ -113,8 +113,6 @@
     <Folder Include="Stored Procedures" />
     <Folder Include="Functions" />
     <Folder Include="Views" />
-    <Folder Include="output\" />
-    <Folder Include="output\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\input.sql" />
@@ -185,8 +183,8 @@
       <AnsiNulls>Off</AnsiNulls>
     </Build>
     <Build Include="Stored Procedures\output.PR_CNQ_ContactosGenerarStatusLeadCRM.sql" />
-    <Build Include="output\Views\output.V_CNQ_InformeCargaFicherosCRM.sql" />
     <Build Include="Functions\process.FN_CNQ_City.sql" />
+    <Build Include="Views\output.V_CNQ_InformeCargaFicherosCRM.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Conqueror.publish.xml" />
